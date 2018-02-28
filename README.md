@@ -14,7 +14,7 @@ Please see https://www.apps.nlga.niedersachsen.de/tools/NLGAMap for usage instru
 ### Usage
 Download the bundled package files
 
-**[NLGAMap Bundled](NLGAMap_latest.zip)**
+**[NLGAMap Bundled](https://www.apps.nlga.niedersachsen.de/tools/NLGAMap/NLGAMap_latest.zip)**
 
 Include stylesheets
 
