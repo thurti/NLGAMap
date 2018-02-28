@@ -1,0 +1,11 @@
+<center>
+    <% if (name) { %>
+    <b><%= name %></b><br>
+    <% } %>
+    <% var data = data || false; %>
+    <% if (data) { %>
+        <%= data %>
+    <% } else { %>
+        <%= markerNames[value] %>
+    <% } %>
+</center>

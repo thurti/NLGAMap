@@ -1,0 +1,137 @@
+.leaflet-container {
+    font: 12px/1.417 "Frutiger W01", arial, sans-serif;
+    background-color: transparent;
+    text-align: left;
+    user-select: none;
+}
+
+.leaflet-fullscreen-on{
+    background-color: #eeeeee;
+}
+
+path.feature_ignore{
+    stroke: grey;
+}
+
+path.feature_ignore:hover {
+    cursor: default;
+}
+
+
+/**
+ * Map City Marker
+ */
+.nlga_map-city-icon{
+    background: rgba(51,160,44, 0.7);
+    border: 1px solid rgba(255,255,255,0.7);
+    /*box-shadow: 1px 1px 1px rgba(0,0,0,0.3);*/
+    border-radius: 10px;
+}
+
+.nlga_map-city-icon__text{
+    position: absolute;
+    margin: -1.75em 0 0 -4.75em;
+    padding: 0.125em 0.25em;
+    width: 10em;
+    
+    font-size: 1.25em;
+    font-weight: bold;
+    text-align: center;
+    /*color: #232323;
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.1);*/
+    color: #ffffff;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8);
+}
+
+/**
+ * Leaflet
+ */
+.leaflet-popup-content-wrapper,
+.leaflet-bar,
+.leaflet-control-layers{
+    border-radius: 1px;
+
+}
+
+.leaflet-fade-anim .leaflet-popup {
+  transition: none;
+}
+
+.leaflet-control-layers,
+.leaflet-bar {
+    border-radius: 1px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.27);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.leaflet-control form{
+    margin-bottom: 0;
+}
+
+.leaflet-control label{
+    margin: 0;
+    padding: 0;
+}
+
+.leaflet-top.leaflet-right{
+    z-index: 1001;
+}
+
+
+.leaflet-touch .leaflet-control-layers, 
+.leaflet-touch .leaflet-bar {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+/**
+ * Popup
+ */
+.leaflet-popup-content{
+    margin: 0.5rem;
+}
+
+
+/**
+ * Fullscreen 
+ */
+.leaflet-control-fullscreen a {
+    background: #fff;
+}
+
+
+.clearfix:after {
+    content: ".";
+    clear: both;
+    display: block;
+    visibility: hidden;
+    height: 0;
+}
+
+@media print{
+    .leaflet-control{
+        border: 0;
+        box-shadow: none;
+    }
+    .leaflet-control-fullscreen,
+    .leaflet-control-zoom,
+    .leaflet-control-layers-toggle,
+    .leaflet-control-attribution a{
+        display: none;
+    }
+
+    path.noData,
+    .nlga_map-legend .nlga_map-legend__color.noData rect{
+        fill: white !important;
+        stroke: grey;
+    }
+
+    .nlga_map-legend__info-icon{
+        display: none;
+    }
+
+    .leaflet-container svg g path{
+        stroke: grey;
+        stroke-opacity: 1;
+    }
+}

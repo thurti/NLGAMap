@@ -1,0 +1,24 @@
+.symbols-noData{
+    display: inline-block;
+    position: relative;
+    /*left: -9px;
+    top: -14px;
+    width: 16px;
+    height: 16px;*/
+    color: rgba(0,0,0,0.5);
+    border: 1px solid rgba(0,0,0,0.3);
+}
+
+.nlga_map-legend .symbols-noData{
+    left: 1px;
+    top: 0;
+
+    width: 15px;
+    height: 15px;
+
+    margin-right: 0.25em;
+}
+.nlga_map-legend .symbols-noData:before{
+    position: relative;
+    left: -1px;
+}

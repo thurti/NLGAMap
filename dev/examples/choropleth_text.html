@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../node_modules/leaflet/dist/leaflet.css">
+    <script src="../../dist/js/NLGAMap/nlga.polyfills.min.js"></script> 
+    <script src="../bundle.js"></script>
+    <style type="text/css">
+        body {
+            font-family: arial;
+        }
+
+        #nlga_map{
+            width: 720px;
+            height: 650px;
+            margin: 3rem auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Choropleth with text limits</h1>
+    <div id="nlga_map"></div>
+
+    <script type="text/javascript">
+        var test_data = {
+            "101": 'niedrig',
+            "102": 'mittel',
+            "241": 'hoch',
+            "354": 'niedrig',
+            "355": 'niedrig',
+            "356": 'hoch'
+        };
+
+        var map = new NLGAMap({
+            id: 'nlga_map',
+            map: {
+                center: [52.6, 9.1],
+                zoom: 7.5,
+                controls: {
+                    attribution: {
+                        text: '© GeoBasis-DE / <a href="http://www.bkg.bund.de/">BKG</a> 2017 (Daten verändert)'
+                    }
+                }
+            },
+            baseLayer: {
+                ignoreLayerIds: ['04'],
+                json: './topojson/BKG_NDS_Kreise_vg2500_G_Oe_Ost.topo.json',
+            },
+            cityLayer: {
+                json: './topojson/NDS_Staedte.topo.json'
+            },
+            layers: {
+                choropleth: {
+                    layerName: 'myTest',
+                    title: 'My Title',
+                    data: test_data,
+                    mode: 'text',                                            //text mode to set text limits
+                    limits: ['niedrig', 'mittel', 'hoch'],                   //text limits that match data values
+                    limitColors: ['lightblue', '#334499', 'rgb(230,120,22)'], //colors for limits
+                    legend: {
+                        ignoredLayers: 'Bremen'
+                    }
+                }
+            }
+        });
+
+        map.render();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<% if (title) { %>
+<h4 class="nlga_map-legend__title">
+    <%= title %>
+    <% if (infoText !== '') { %>
+        <a href="#" class="nlga_map-legend__info-icon">i</a>
+        <div class="nlga_map-legend__info">
+            <p><%= infoText %></p>
+        </div>
+    <% } %>
+</h4>
+<% } %>
+<ul>
+    <%  limits.forEach(function (limit, idx) { %>
+
+        <li>
+            <svg class="nlga_map-legend__color"><rect width="100%" height="100%" style="fill:<%= colors.classes[idx] %>"/></svg> <%= limit %>
+        </li>
+
+    <% }); %>
+
+    <% if (striped !== false) { %>
+    <li><svg class="nlga_map-legend__color striped"><rect width="100%" height="100%" fill="url(#nlga_map_striped)" /></svg> <%= striped %></li>
+    <% } %>
+
+    <%= additional %>
+
+    <% if (noData !== false) { %>
+    <li>
+        <svg class="nlga_map-legend__color noData"><rect width="100%" height="100%" style="fill:<%= colors.notFound %>"/></svg> <%= noData %>
+    </li>
+    <% } %>
+
+    <% if (ignoredLayers !== false) { %>
+    <li style="margin-top: 1em" class="clearfix">
+        <svg class="nlga_map-legend__color colorIgnore"><rect width="100%" height="100%" style="fill:<%= colors.ignore %>"/></svg>
+        <div class="colorIgnore_text"><%= ignoredLayers %></div>
+    </li>
+    <% } %>
+</ul>

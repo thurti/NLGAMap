@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../node_modules/leaflet/dist/leaflet.css">
+    <script src="../../dist/js/NLGAMap/nlga.polyfills.min.js"></script> 
+    <script src="../bundle.js"></script>
+    <style type="text/css">
+        body {
+            font-family: arial;
+        }
+        
+        #nlga_map{
+            width: 720px;
+            height: 650px;
+            margin: 3rem auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Choropleth Custom Callback Example</h1>
+    <div id="nlga_map"></div>
+
+    <script type="text/javascript">
+        var test_data = {
+            "101": 22.1,
+            "102": 27.4,
+            "241": 1,
+            "354": 15,
+            "355": 30,
+            "356": 90
+        };
+
+        var map = new NLGAMap({
+            id: 'nlga_map',
+            map: {
+                center: [52.6, 9.1],
+                zoom: 7.5,
+                controls: {
+                    attribution: {
+                        text: '© GeoBasis-DE / <a href="http://www.bkg.bund.de/">BKG</a> 2017 (Daten verändert)'
+                    }
+                }
+            },
+            baseLayer: {
+                ignoreLayerIds: ['04'],
+                json: './topojson/BKG_NDS_Kreise_vg2500_G_Oe_Ost.topo.json',
+            },
+            cityLayer: {
+                json: './topojson/NDS_Staedte.topo.json'
+            },
+            layers: {
+                choropleth: {
+                    layerName: 'myTest',
+                    data: test_data,
+                    layerCallback: myLayerCallback, //function is called for each region
+                    legend: {
+                        ignoredLayers: 'Bremen',
+                        additional: '<li><svg class="nlga_map-legend__color"><rect width="100%" height="100%" style="fill:gold"></rect></svg> eigene Kategorie</li>'
+                    }
+                }
+            }
+        });
+
+        map.render();
+
+        function myLayerCallback(layer, value) {
+            var layerId = layer.feature.properties.id;
+            
+            //set layer color for specific region id
+            if (layerId === '154') { //Helmstedt
+                this.setLayerColor(layer, 'red');
+                this.setLayerPopup(layer, 'neuer Wert');
+            }
+            
+            //set layer color if value is lower equal 10
+            if (value <= 10) {
+                this.setLayerColor(layer, 'gold');
+                this.setLayerPopup(layer, 'eigene Kategorie');
+            }
+
+            //for more styling options use leaflet layer.setStyle
+            //http://leafletjs.com/reference-1.0.2.html#path-option
+            //layer.setStyle({...});
+        }
+
+    </script>
+</body>
+</html>

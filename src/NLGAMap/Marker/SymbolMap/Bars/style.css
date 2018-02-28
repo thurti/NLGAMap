@@ -1,0 +1,44 @@
+/**
+ * Bar Symbol
+ */
+.symbols-bar{
+    position: relative;
+    display: inline-block;
+
+    fill: rgba(51,160,44, 0.8);
+    stroke: rgba(255,255,255,0.8);
+    stroke-width: 1px;
+
+    shape-rendering: crispEdges;
+}
+
+.nlga_map-symbol-marker.no-pointer{
+    pointer-events: none !important;
+}
+
+.nlga_map-symbol-marker svg{
+    position: absolute;
+}
+
+.noData {
+    margin-top: 1em;
+}
+
+.bar-container{
+    display: inline-block;
+    margin-right: 0.25rem;
+}
+
+.bar-container:last-child{
+    margin-right: 0;
+}
+
+.nlga_map-legend__bar{
+    position: relative;
+    display: block;
+}
+
+.nlga_map-legend__bar .symbols-bar{
+    stroke: white;
+    fill: rgba(51,160,44, 0.9);
+}

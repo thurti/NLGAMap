@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../node_modules/leaflet/dist/leaflet.css">
+    <script src="../../dist/js/NLGAMap/nlga.polyfills.min.js"></script>        
+    <script src="../bundle.js"></script>
+    <style type="text/css">
+        body {
+            font-family: arial;
+        }
+
+        #nlga_map{
+            width: 720px;
+            height: 650px;
+            margin: 3rem auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Symbol Map - Arrows</h1>
+    <div id="nlga_map"></div>
+
+    <script type="text/javascript">
+        var test_data = {
+            "101": 0,       //0 === no data
+            "102": 1,       //value === markerNames index
+            "241": 2,
+            "354": 3,
+            "355": 4,
+            "356": {
+                value: 3,
+                data: 10.4,  //display real value in popup
+            }
+        };
+
+        var map = new NLGAMap({
+            id: 'nlga_map',
+            map: {
+                center: [52.6, 9.1],
+                zoom: 7.5,
+                controls: {
+                    attribution: {
+                        text: '© GeoBasis-DE / <a href="http://www.bkg.bund.de/">BKG</a> 2017 (Daten verändert)'
+                    }
+                }
+            },
+            baseLayer: {
+                ignoreLayerIds: ['04'],
+                json: './topojson/BKG_NDS_Kreise_vg2500_G_Oe_Ost.topo.json',
+            },
+            cityLayer: {
+                json: './topojson/NDS_Staedte.topo.json'
+            },
+            layers: {
+                symbols: [{
+                    json: './topojson/ArrowPositions.json',
+                    layerName: 'myTest',
+                    title: 'Tendenz',
+                    data: test_data,
+                    type: 'arrows',
+                    layerControl: {
+                        name: 'Tendenz'
+                    },
+                    legend: {
+                        ignoredLayers: 'Bremen',
+                        markerNames: [
+                            'keine Daten',
+                            'stark abnehmend',
+                            'abnehmend',
+                            'gleichbleibend',
+                            'zunehmend',
+                            'stark zunehmend'
+                        ]
+                    }
+                }]
+            }
+        });
+
+        map.render();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLGAMap DEV</title>
+    <link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css">
+    <script src="../dist/nlga.polyfills.min.js"></script> 
+    <script src="./bundle.js"></script>
+    <style type="text/css">
+        body {
+            font-family: arial;
+        }
+        
+        #nlga_map{
+            width: 900px;
+            height: 650px;
+            margin: 3rem auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Choropleth Example</h1>
+    <div id="nlga_map"></div>
+
+    <script type="text/javascript">
+        var test_data = {"101":50.3,"102":50.6,"103":50.4,"151":50,"152":50.7,"153":50.6,"154":50.4,"155":50.8,"156":51,"157":50.5,"158":50.5,"241":51.1,"251":50.2,"252":51.7,"254":51.3,"255":50.5,"256":50.3,"257":51.2,"351":50.8,"352":51,"353":50.8,"354":50.1,"355":51.1,"356":50.6,"357":49.6,"358":49.8,"359":50.1,"360":51,"361":50.9,"401":50.4,"402":50.2,"403":52.2,"404":51.8,"405":51,"451":50.9,"452":50.7,"453":49.4,"454":49.1,"455":51.2,"456":50,"457":50.2,"458":50.2,"459":50.2,"460":49.6,"461":50,"462":50.9};
+
+        var map = new NLGAMap({
+            id: 'nlga_map',
+            map: {
+                center: [52.6, 9.1],
+                zoom: 7.5,
+                controls: {
+                    attribution: {text: 'NLGA ' + new Date().getFullYear() + ' | © GeoBasis-DE / <a href="http://www.bkg.bund.de/">BKG</a> 2017 (Daten verändert)'}
+                }
+            },
+            baseLayer: {
+                ignoreLayerIds: ['04'],
+                json: './examples/topojson/BKG_NDS_Kreise_vg2500_G_Oe_Ost.topo.json',
+            },
+            cityLayer: {
+                json: './examples/topojson/NDS_Staedte.topo.json'
+            },
+            layers: {
+                choropleth: {
+                    layerName: 'myTest',
+                    title: 'Choropleth Example',
+                    data: test_data,
+                    legend: {
+                        ignoredLayers: 'Bremen'
+                    }
+                }
+            }
+        });
+
+        map.render();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../node_modules/leaflet/dist/leaflet.css">
+    <script src="../../dist/js/NLGAMap/nlga.polyfills.min.js"></script> 
+    <script src="../bundle.js"></script>
+    <style type="text/css">
+        body {
+            font-family: arial;
+        }
+        
+        #nlga_map{
+            width: 720px;
+            height: 650px;
+            margin: 3rem auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Custom Popup Example</h1>
+    <div id="nlga_map"></div>
+
+    <script type="text/javascript">
+        var test_data = {
+            "101": 22.1,
+            "102": 27.4,
+            "241": 1,
+            "354": 15,
+            "355": 30,
+            "356": 90
+        };
+
+        var symbol_data = {
+            "241": {
+                data: 23,
+                value: 0,
+                myData: 'my data (eg. gkz)',
+            }
+        };
+
+        var map = new NLGAMap({
+            id: 'nlga_map',
+            map: {
+                center: [52.6, 9.1],
+                zoom: 7.5,
+                controls: {
+                    attribution: {
+                        text: '© GeoBasis-DE / <a href="http://www.bkg.bund.de/">BKG</a> 2017 (Daten verändert)'
+                    }
+                }
+            },
+            baseLayer: {
+                ignoreLayerIds: ['04'],
+                json: './topojson/BKG_NDS_Kreise_vg2500_G_Oe_Ost.topo.json',
+            },
+            cityLayer: {
+                json: './topojson/NDS_Staedte.topo.json'
+            },
+            layers: {
+                choropleth: {
+                    layerName: 'myTest',
+                    title: 'My Title',
+                    data: test_data,
+                    popup: {
+                        template: '<b>Custom Choropleth Popup</b><br> <center>${name}: ${value}</center>'
+                    },
+                    legend: {
+                        ignoredLayers: 'Bremen'
+                    }
+                },
+                symbols: [{
+                    layerName: 'myTest',
+                    title: 'Tendenz',
+                    data: symbol_data,
+                    type: 'bars',
+                    layerControl: {
+                        name: 'Tendenz'
+                    },
+                    legend: {
+                        markerNames: [
+                            'test',
+                            '1',
+                            '2',
+                            '3'
+                        ]
+                    },
+                    popup: {
+                        myProperty: 'my value',
+                        template: '<b>Custom Marker Popup</b><br> ${name}: ${data} <br> ${myData} <br> ${myProperty}'
+                    }
+                }]
+            }
+        });
+
+        map.render();
+
+    </script>
+</body>
+</html>

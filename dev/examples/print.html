@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../node_modules/leaflet/dist/leaflet.css">
+    <script src="../../dist/js/NLGAMap/nlga.polyfills.min.js"></script> 
+    <script src="../bundle.js"></script>
+    <style type="text/css">
+        body {
+            font-family: arial;
+        }
+        
+        #nlga_map{
+            width: 1100px;
+            height: 800px;
+        }
+    </style>
+</head>
+<body>
+    <div id="nlga_map"></div>
+
+    <script type="text/javascript">
+        var test_data = {
+            "101": 22.1,
+            "102": 27.4,
+            "241": 1,
+            "354": 15,
+            "355": 30,
+            "356": 90
+        };
+
+        var map = new NLGAMap({
+            id: 'nlga_map',
+            map: {
+                center: [52.6, 9.1],
+                zoom: 7.5,
+                controls: {
+                    attribution: {
+                        text: '© GeoBasis-DE / <a href="http://www.bkg.bund.de/">BKG</a> 2017 (Daten verändert)'
+                    }
+                }
+            },
+            baseLayer: {
+                ignoreLayerIds: ['04'],
+                json: './topojson/BKG_NDS_Kreise_vg2500_G_Oe_Ost.topo.json',
+            },
+            cityLayer: {
+                json: './topojson/NDS_Staedte.topo.json'
+            },
+            layers: {
+                choropleth: {
+                    layerName: 'myTest',
+                    title: 'My Title',
+                    data: test_data,
+                    steps: 3,              //number of classes
+                    mode: 'quantile'       //equal, quantile, jenks, continuous, manual, text
+                }
+            }
+        });
+
+        map.render();
+
+    </script>
+</body>
+</html>

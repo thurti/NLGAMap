@@ -1,0 +1,82 @@
+<% if (title) { %>
+<h4 class="nlga_map-legend__title">
+    <%= title %>
+    <% if (infoText !== '') { %>
+        <a href="#" class="nlga_map-legend__info-icon">i</a>
+        <div class="nlga_map-legend__info">
+            <p><%= infoText %></p>
+        </div>
+    <% } %>
+</h4>
+<% } %>
+<div class="nlga_map-legend-bars clearfix">
+
+        <div class="bar-container">
+            <svg class="nlga_map-legend__bar" width="19" height="18">
+                <rect class="nlga_map-symbol symbols-bar" x="0" y="0" width="18" height="17"></rect>
+            </svg>
+            <%= markerNames[1] %>
+        </div>
+
+        <% if (markerNames[2]) { %>        
+        <div class="bar-container">
+            <svg class="nlga_map-legend__bar" width="19" height="36">
+                <rect class="nlga_map-symbol symbols-bar" x="0" y="0" width="18" height="17"></rect>
+                <rect class="nlga_map-symbol symbols-bar" x="0" y="17" width="18" height="17"></rect>
+            </svg>
+            <%= markerNames[2] %>
+        </div>    
+        <% } %>
+
+        <% if (markerNames[3]) { %>
+        <div class="bar-container">
+            <svg class="nlga_map-legend__bar" width="19" height="54">
+                <rect class="nlga_map-symbol symbols-bar" x="0" y="0" width="18" height="17"></rect>
+                <rect class="nlga_map-symbol symbols-bar" x="0" y="17" width="18" height="17"></rect>
+                <rect class="nlga_map-symbol symbols-bar" x="0" y="34" width="18" height="17"></rect>
+            </svg>
+            <%= markerNames[3] %>
+        </div>
+        <% } %>
+        
+        <% if (markerNames[4]) { %>   
+        <div class="bar-container">
+            <svg class="nlga_map-legend__bar" width="19" height="72">
+                <rect class="nlga_map-symbol symbols-bar" x="0" y="0" width="18" height="17"></rect>
+                <rect class="nlga_map-symbol symbols-bar" x="0" y="17" width="18" height="17"></rect>
+                <rect class="nlga_map-symbol symbols-bar" x="0" y="34" width="18" height="17"></rect>
+                <rect class="nlga_map-symbol symbols-bar" x="0" y="51" width="18" height="17"></rect>
+            </svg>
+            <%= markerNames[4] %>
+        </div>
+        <% } %>
+
+        <% if (markerNames[5]) { %>
+        <div class="bar-container">
+            <svg class="nlga_map-legend__bar" width="19" height="89">
+                <rect class="nlga_map-symbol symbols-bar" x="0" y="0" width="18" height="17"></rect>
+                <rect class="nlga_map-symbol symbols-bar" x="0" y="17" width="18" height="17"></rect>
+                <rect class="nlga_map-symbol symbols-bar" x="0" y="34" width="18" height="17"></rect>
+                <rect class="nlga_map-symbol symbols-bar" x="0" y="51" width="18" height="17"></rect>
+                <rect class="nlga_map-symbol symbols-bar" x="0" y="68" width="18" height="17"></rect>
+            </svg>
+            <%= markerNames[5] %>
+        </div>
+        <% } %> 
+
+</div>
+
+<% if (noData !== false) { %>
+<div class="noData">
+    <span class="nlga_map-symbol symbols-noData"></span>&nbsp;<%= markerNames[0] %>
+</div>
+<% } %>
+
+<%= additional %>
+
+<% if (ignoredLayers !== false) { %>
+<li style="margin-top: 1em" class="clearfix">
+    <svg class="nlga_map-legend__color colorIgnore"><rect width="100%" height="100%" style="fill:<%= colors.ignore %>"/></svg>
+    <div class="colorIgnore_text"><%= ignoredLayers %></div>
+</li>
+<% } %>

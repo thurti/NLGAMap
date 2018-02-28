@@ -1,0 +1,48 @@
+{
+    "source": "./src",
+    "destination": "./manual",
+    "plugins": [
+        {
+            "name": "esdoc-standard-plugin",
+            "option": {
+                "unexportIdentifier": {"enable": true},
+                "brand": {
+                    "logo": "./docs/asset/logo_nlga.jpg",
+                    "title": "NLGAMap",
+                    "description": "JS Library for creating choropleth maps with leaflet.",
+                    "repository": "https://github.com/nlga/NLGAMap",
+                    "site": "https://www.apps.nlga.niedersachsen.de/tools/NLGAMap",
+                    "author": "",
+                    "image": ""
+                },
+                "manual": {
+                    "index": "./docs/index.md",
+                    "globalIndex": true,
+                    "asset": "./docs/asset",
+                    "files": [
+                        "./docs/usage.md",
+                        "./docs/configuration.md",
+                        "./docs/examples.md",
+                        "./CHANGELOG.md"
+                    ]
+                },
+                "test": {
+                    "source": "./tests/",
+                    "interfaces": ["describe", "it", "context", "suite", "test"],
+                    "includes": ["(spec|Spec|test|Test)\\.js$"],
+                    "excludes": ["\\.config\\.js$"]
+                }
+            }
+        },
+        {
+            "name": "esdoc-ecmascript-proposal-plugin", 
+            "option": {
+                "all": true
+            }
+        }, 
+        {
+            "name": "esdoc-plugin-transform-html",
+            "option": "./esdoc-jsfiddle.js"
+        }
+    ]
+}

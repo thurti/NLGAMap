@@ -1,0 +1,54 @@
+/**
+ * Map Marker
+ */
+
+.nlga_map-marker-icon{
+    border: 1px solid rgba(255,255,255, 0.8);
+    border-radius: 100px;
+}
+
+/*
+.nlga_map-marker-icon circle,
+.nlga_map-marker-icon--null circle {
+    fill: rgba(224, 0, 60, 0.8);
+} */
+
+.nlga_map-marker-icon--null{
+    width: 0.5em;
+    height: 0.5em;
+}
+
+.nlga_map-marker-icon--null circle{
+    fill: #444;
+    stroke: none;
+}
+
+/**
+ * Legend Marker
+ */
+.nlga_map-legend-marker .nlga_map-marker-icon,
+.nlga_map-legend-marker .nlga_map-marker-icon--null{
+    display: inline-block;
+    position: relative;
+
+    /*width: auto;
+    height: auto;*/
+    border-radius: 0;
+}
+
+.nlga_map-legend-marker .nlga_map-marker-icon circle{
+     width: auto;
+     fill: rgba(224, 0, 60, 0.7);
+     stroke: rgba(0,0,0,0.5);
+}
+
+.nlga_map-legend-marker .nlga_map-marker-icon line{
+    stroke: rgba(0,0,0,0.3);
+    shape-rendering: crispEdges;
+}
+
+.nlga_map-legend-marker .nlga_map-marker-icon--null{
+    top: 0;
+    left: 0.5em;
+    margin-right: 1.25em;
+}

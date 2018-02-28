@@ -1,0 +1,6 @@
+.vscode/
+dev/bundle.js
+dev/report.html
+manual/
+node_modules/
+!dist/

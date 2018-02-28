@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../node_modules/leaflet/dist/leaflet.css">
+    <script src="../../dist/js/NLGAMap/nlga.polyfills.min.js"></script> 
+    <script src="../bundle.js"></script>
+    <style type="text/css">
+        body {
+            font-family: arial;
+        }
+
+        #nlga_map{
+            width: 720px;
+            height: 650px;
+            margin: 3rem auto;
+        }
+
+        .myMarkerIcon{
+            background: gold;
+            border: 1px solid white;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Marker Callback Example</h1>
+    <div id="nlga_map"></div>
+
+    <script type="text/javascript">
+        var test_data = {
+            type: 'FeatureCollection',
+            features: [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [10.8218518831934, 52.4502857746789]
+                    },
+                    "properties": {
+                        "name": 'Marker 1',
+                        "value": 2
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [9.8218518831934, 52.4502857746789]
+                    },
+                    "properties": {
+                        "name": 'Marker 2',
+                        "value": 10
+                    }
+                }
+            ]
+        };
+
+        var map = new NLGAMap({
+            id: 'nlga_map',
+            map: {
+                center: [52.6, 9.1],
+                zoom: 7.5,
+                controls: {
+                    attribution: {
+                        text: '© GeoBasis-DE / <a href="http://www.bkg.bund.de/">BKG</a> 2017 (Daten verändert)'
+                    }
+                }
+            },
+            baseLayer: {
+                ignoreLayerIds: ['04'],
+                json: './topojson/BKG_NDS_Kreise_vg2500_G_Oe_Ost.topo.json',
+            },
+            cityLayer: {
+                json: './topojson/NDS_Staedte.topo.json'
+            },
+            layers: {
+                markers: [{
+                    layerName: 'myTest',
+                    title: 'My Title',
+                    data: test_data,
+                    layerControl: {
+                        name: 'Test'
+                    },
+                    legend: false,
+                    customIcon: function (value) {
+                        //calculate height for value
+                        var markerWidth = 20,
+                        markerHeight    = value * 10;
+
+                        //for more icon options see http://leafletjs.com/reference-1.0.2.html#icon
+                        return L.divIcon({
+                                className: 'myMarkerIcon',
+                                iconSize: [markerWidth, markerHeight],
+                                html: '<span>'+value+'</span>'
+                            });
+                    }
+                }]
+            }
+        });
+
+        map.render();
+
+    </script>
+</body>
+</html>

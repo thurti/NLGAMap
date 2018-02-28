@@ -1,0 +1,12 @@
+<div class="timeline-control">
+    <div class="currentTime"><%= options.timeDomainName %> <span class="time"><%= options.currentTime %></span></div>
+
+    <input type="range" data-action="seek" class="seek" value="<%= options.seekCurrent %>" min="0" max="<%= options.seekMax %>">
+
+    <button type="button" data-action="prev" class="nlga_map-timeline-icon-to-start"></button>
+    <button type="button" data-action="play" class="nlga_map-timeline-icon-play"></button>
+    <button type="button" data-action="next" class="nlga_map-timeline-icon-to-end"></button>
+    <button type="button" data-action="loop" class="loop nlga_map-timeline-icon-cw is-active"></button>
+
+    <div class="clearfix"></div>
+</div>

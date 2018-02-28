@@ -1,0 +1,64 @@
+<% if (title) { %>
+<h4 class="nlga_map-legend__title">
+    <%= title %>
+    <% if (infoText !== '') { %>
+        <a href="#" class="nlga_map-legend__info-icon">i</a>
+        <div class="nlga_map-legend__info">
+            <p><%= infoText %></p>
+        </div>
+    <% } %>
+</h4>
+<% } %>
+<ul>
+    <li>
+        <div class="nlga_map-legend__gradient clearfix">
+            
+            <svg class="gradient">
+                <defs>
+                    <linearGradient id="gradient">
+                    <% 
+                        var single_offset = 100 / gradientValues.length;
+
+                        gradientValues.forEach(function (value, idx) {
+                            var offset = single_offset * idx,
+                            color = _chromaFunction(value);
+                    %>
+                            <stop offset="<%= offset %>%" stop-color="<%= color %>" />
+                    <%  }); %>
+                    </linearGradient>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#gradient)">
+            </svg>
+
+            <span class="nlga_map-legend__marker <%= colorScheme %>" style="width:<%= stepWidth %>%;"></span>
+            <span class="min"><%= min %><%= unit %></span>
+            <span class="max"><%= max %><%= unit %></span>
+        </div>
+    </li>
+
+    <% if (striped !== false) { %>
+    <li><svg class="nlga_map-legend__color striped"><rect width="100%" height="100%" fill="url(#nlga_map-striped)" /></svg> <%= striped %></li>
+    <% } %>
+    
+    <%= additional %>
+
+    <% for (var prop in statistics) { 
+        if (statistics[prop] !== false) {
+    %>
+        <li class="nlga_map-legend__modeName"><%= statistic_names[prop] %>: <%= statistics[prop] %><%= unit %></li>
+    <%  }
+    } %>
+
+    <% if (noData !== false) { %>
+    <li>
+        <svg class="nlga_map-legend__color"><rect width="100%" height="100%" style="fill:<%= colors.notFound %>"/></svg> <%= noData %>
+    </li>
+    <% } %>
+
+    <% if (ignoredLayers !== false) { %>
+    <li style="margin-top: 1em" class="clearfix">
+        <svg class="nlga_map-legend__color colorIgnore"><rect width="100%" height="100%" style="fill:<%= colors.ignore %>"/></svg>
+        <div class="colorIgnore_text"><%= ignoredLayers %></div>
+    </li>
+    <% } %>
+</ul>

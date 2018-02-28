@@ -1,0 +1,62 @@
+<% if (title) { %>
+<h4 class="nlga_map-legend__title">
+    <%= title %>
+    <% if (infoText !== '') { %>
+        <a href="#" class="nlga_map-legend__info-icon">i</a>
+        <div class="nlga_map-legend__info">
+            <p><%= infoText %></p>
+        </div>
+    <% } %>
+</h4>
+<% } %>
+<ul>
+    <li>
+        <% 
+            //large circle
+            var wh          = _getPointSize(bounds[1]),
+            r               = wh[0] * 0.5,
+            w_bounds_string = (bounds[1].toString().length + unit.length) * 9,
+            offset_top      = 10,
+
+            c_y    = r + offset_top,
+            line_w = r * 2.5; 
+        %>
+        <svg class="nlga_map-marker-icon" width="<%= (r*2.5) + 4 + w_bounds_string %>" height="<%= wh[1] + offset_top %>">
+            ]
+            <circle cx="<%= r %>" cy="<%= c_y %>" r="<%= r %>" style="<%= style%>"></circle>
+            <line x1="<%= r %>" y1="<%= offset_top +1 %>" x2="<%=line_w %>" y2="<%= offset_top +1 %>"></line>
+            <text x="<%=line_w + 4 %>" y="<%= offset_top +1 %>"><%= bounds[1] %><%= unit %></text>
+
+
+            <%
+                //small circle
+                wh_s   = _getPointSize(bounds[0]),
+                r_s    = wh_s[0] * 0.5,
+                c_y    = 2*r - r_s + offset_top,
+                line_y = 2*(r - r_s) + offset_top;
+            %>
+            <circle cx="<%= r %>" cy="<%= c_y %>" r="<%= r_s %>" style="<%= style%>"></circle>
+            <line x1="<%= r %>" y1="<%= line_y %>" x2="<%=line_w%>" y2="<%= line_y %>"></line>
+            <text x="<%=line_w + 4 %>" y="<%= line_y %>"><%= bounds[0] %><%= unit %></text>
+
+        </svg>
+
+    </li>
+
+    <%= additional %>
+
+    <% for (var prop in statistics) { 
+        if (statistics[prop] !== false) {
+    %>
+        <li class="nlga_map-legend__modeName"><%= statistic_names[prop] %>: <%= statistics[prop] %><%= unit %></li>
+    <%  }
+    } %>
+
+    <% if (ignoredLayers !== false) { %>
+    <li style="margin-top: 1em" class="clearfix">
+        <svg class="nlga_map-legend__color colorIgnore"><rect width="100%" height="100%" style="fill:<%= colors.ignore %>"/></svg>
+        <div class="colorIgnore_text"><%= ignoredLayers %></div>
+    </li>
+    <% } %>
+
+</ul>

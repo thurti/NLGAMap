@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../node_modules/leaflet/dist/leaflet.css">
+    <script src="../../dist/js/NLGAMap/nlga.polyfills.min.js"></script> 
+    <script src="../bundle.js"></script>
+    <style type="text/css">
+        body {
+            font-family: arial;
+        }
+        
+        #nlga_map{
+            width: 720px;
+            height: 650px;
+            margin: 3rem auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Custom Legend Example</h1>
+    <div id="nlga_map"></div>
+
+    <script type="text/javascript">
+        var test_data = {
+            "101": 22.1,
+            "102": 27.4,
+            "241": 1,
+            "354": 15,
+            "355": 30,
+            "356": 90
+        };
+
+        var test_symbols = {
+            "101": {value: 2, data:33},
+            "241": 3
+        };
+
+        var map = new NLGAMap({
+            id: 'nlga_map',
+            map: {
+                center: [52.6, 9.1],
+                zoom: 7.5,
+                controls: {
+                    attribution: {
+                        text: '© GeoBasis-DE / <a href="http://www.bkg.bund.de/">BKG</a> 2017 (Daten verändert)'
+                    }
+                }
+            },
+            baseLayer: {
+                ignoreLayerIds: ['04'],
+                json: './topojson/BKG_NDS_Kreise_vg2500_G_Oe_Ost.topo.json',
+            },
+            cityLayer: {
+                json: './topojson/NDS_Staedte.topo.json'
+            },
+            layers: {
+                choropleth: {
+                    layerName: 'myTest',
+                    title: 'My Title',
+                    data: test_data,
+                    legend: {
+                        template: '${title} limits: ${limits}<br> Colors: ${colors}<br>Color from Chroma Function: ${_chromaFunction(limits[0])}'
+                    }
+                },
+                symbols: [{
+                    layerName: 'symbolsLayer',
+                    data: test_symbols,
+                    title: 'Symbols',
+                    type:"bars",
+                    legend: {
+                        myProperty: 'hello',
+                        infoText: 'info',
+                        template: '${title} ${infoText} ${markerNames} ${myProperty}',
+                        markerNames: [
+                            'keine Daten',
+                            '1',
+                            '2',
+                            '3',
+                            '4',
+                            '5'
+                        ]
+                    }
+                }]
+            }
+        });
+
+        map.render();
+
+    </script>
+</body>
+</html>

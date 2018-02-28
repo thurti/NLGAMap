@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../node_modules/leaflet/dist/leaflet.css">
+    <script src="../../dist/js/NLGAMap/nlga.polyfills.min.js"></script> 
+    <script src="../bundle.js"></script>
+    <style type="text/css">
+        body {
+            font-family: arial;
+        }
+        
+        #nlga_map{
+            width: 850px;
+            height: 650px;
+            margin: 3rem auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Timeline Example</h1>
+
+    <p><b>Actual Time: <span class="actualTime">2014</span></b></p>
+    <div id="nlga_map"></div>
+
+    <script type="text/javascript">
+        var data_choropleth = {
+            "2012": {
+                "101": 10,
+                "102": 20,
+                "241": 5,
+                "354": 40,
+                "355": 80,
+                "356": 70
+            },
+            "2013": {
+                "101": 22.1,
+                "102": 27.4,
+                "241": 1,
+                "354": 15,
+                "355": 30,
+                "356": 90  
+            },
+            "2014": {
+                "101": 1,
+                "102": 80,
+                "241": 50,
+                "354": 5,
+                "355": 15,
+                "356": 40  
+            }
+        };
+
+        var data_marker = {
+            type: 'FeatureCollection',
+            features: [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [10.8218518831934, 52.4502857746789]
+                    },
+                    "properties": {
+                        "name": 'Marker 1',
+                        "value": 1,
+                        "year": "2013"  //timeKey: 'year'
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [10.8218518831934, 52.4502857746789]
+                    },
+                    "properties": {
+                        "name": 'Marker 1',
+                        "value": 5,
+                        "year": "2014"
+                    }
+                }
+            ]
+        };
+
+        var data_symbol = {
+            "2012": {
+                "241": 1
+            },
+            "2013": {
+                "241": 2
+            },
+            "2014": {
+                "241": 3
+            }
+        };
+
+
+        function onTimeChange(time) {
+            //just an example to display current time
+            //can be used to combine the map with other elements on the page (eg. chart)
+            document.querySelector('.actualTime').innerHTML = time;
+        }
+
+        var map = new NLGAMap({
+            id: 'nlga_map',
+            map: {
+                center: [52.6, 9.1],
+                zoom: 7.5,
+                controls: {
+                    attribution: {
+                        text: '© GeoBasis-DE / <a href="http://www.bkg.bund.de/">BKG</a> 2017 (Daten verändert)'
+                    }
+                }
+            },
+            baseLayer: {
+                ignoreLayerIds: ['04'],
+                json: './topojson/BKG_NDS_Kreise_vg2500_G_Oe_Ost.topo.json',
+            },
+            cityLayer: {
+                json: './topojson/NDS_Staedte.topo.json'
+            },
+            layers: {
+                choropleth: {
+                    layerName: 'myChoropleth',
+                    title: 'Choropleth',
+                    data: data_choropleth,
+                    legend: {
+                        ignoredLayers: 'Bremen'
+                    },
+                    timeline: {
+                        timeDomainName: 'Jahr',     //time domain to display in playback control
+                        fps: 1,                     //playback tempo
+                        loop: true,                 //loop playback
+                        onTimeChange: onTimeChange  //function get called on every time change
+                    }
+                },
+                markers: [{
+                    layerName: 'myMarker',
+                    title: 'Marker',
+                    data: data_marker,
+                    timeKey: 'year',        //timeKey must match a property in the geojson data
+                    timeline: true,
+                    layerControl: {
+                        name: 'Test'
+                    },
+                    legend: {
+                        position: 'bottomleft',
+                        bremen: false
+                    }
+                }],
+                symbols: [{
+                    layerName: 'myTest',
+                    title: 'Tendenz',
+                    data: data_symbol,
+                    type: 'bars',
+                    timeline:true,
+                    layerControl: {
+                        name: 'Tendenz'
+                    },
+                    legend: {
+                        position: 'bottomleft',
+                        markerNames: [
+                            'keine Daten',
+                            '>10',
+                            '>30',
+                            '>40'
+                        ]
+                    }
+                }]
+            }
+        });
+
+        map.render();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<% if (title) { %>
+<h4 class="nlga_map-legend__title">
+    <%= title %>
+    <% if (infoText !== '') { %>
+        <a href="#" class="nlga_map-legend__info-icon">i</a>
+        <div class="nlga_map-legend__info">
+            <p><%= infoText %></p>
+        </div>
+    <% } %>
+</h4>
+<% } %>
+<ul>
+    <li>
+        <span class="nlga_map-symbol symbols-arrows arrows--5"></span> <%= markerNames[5] %>
+    </li>
+    <li>
+        <span class="nlga_map-symbol symbols-arrows arrows--4"></span> <%= markerNames[4] %>
+    </li>
+    <li>
+        <span class="nlga_map-symbol symbols-arrows arrows--3"></span> <%= markerNames[3] %>
+    </li>
+    <li>
+        <span class="nlga_map-symbol symbols-arrows arrows--2"></span> <%= markerNames[2] %>
+    </li>
+    <li>
+        <span class="nlga_map-symbol symbols-arrows arrows--1"></span> <%= markerNames[1] %>
+    </li>
+
+    <%= additional %>
+
+    <% if (noData !== false) { %>
+    <li>
+        <span class="nlga_map-symbol symbols-noData"></span>&nbsp;<%= markerNames[0] %>
+    </li>
+    <% } %>
+
+    <% if (ignoredLayers !== false) { %>
+    <li style="margin-top: 1em" class="clearfix">
+        <svg class="nlga_map-legend__color colorIgnore"><rect width="100%" height="100%" style="fill:<%= colors.ignore %>"/></svg>
+        <div class="colorIgnore_text"><%= ignoredLayers %></div>
+    </li>
+    <% } %>
+
+</ul>
