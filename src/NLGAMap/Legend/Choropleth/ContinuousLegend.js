@@ -17,7 +17,7 @@ export class ContinuousLegend extends Legend {
         gradientValues = this._getGradientValues(options.limits);
         
         options.gradientValues = gradientValues;
-        options.stepWidth      = 100 / gradientValues.length;
+        options.stepWidth      = Numbers.round(100 / gradientValues.length, this._precision);
         options.min            = gradientValues[0];
         options.max            = gradientValues[gradientValues.length-1];
 
@@ -47,14 +47,13 @@ export class ContinuousLegend extends Legend {
     }
 
     _getGradientValues(limits) {
-        const precision = Numbers.getPrecision(this.options.data),
-              step      = parseFloat('1e-' + precision), //create step size from precision (eg. 0.1)
-              values    = range(limits[0], limits[1], step);
+        const step_size = parseFloat('1e-' + this._precision), //create step_size size from precision (eg. 0.1)
+              values    = range(limits[0], limits[1], step_size);
 
         values.push(limits[1]); //add upper limit to range
 
         return values.map((value) => {
-            return Parse.truncateFloat(value, precision);
+            return Numbers.round(value, this._precision);
         });
     }
 
