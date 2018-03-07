@@ -26,14 +26,13 @@ export class Legend {
     _initStatistics() {
         if (!this.options.data) return;
 
+        this._precision      = Numbers.getPrecision(this.options.data);
         const classification = new Classification(this.options.data);
-        let   precision      = Numbers.getPrecision(this.options.data);
-
-        precision = (precision < 2) ? 2 : precision; //set minimum of 2 decimals for statistics
+        let stats_precision = (this._precision < 2) ? 2 : this._precision; //set minimum of 2 decimals for statistics
 
         for (let prop in this.options.statistics) {
             if (this.options.statistics[prop] === true) {
-                this.options.statistics[prop] = Parse.truncateFloat(classification[prop](), precision);
+                this.options.statistics[prop] = Numbers.round(classification[prop](), stats_precision);
             }
         }
     }

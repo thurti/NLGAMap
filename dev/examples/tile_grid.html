@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../../node_modules/leaflet/dist/leaflet.css">
-    <script src="../../dist/js/NLGAMap/nlga.polyfills.min.js"></script> 
+    <script src="../../dist/nlga.polyfills.min.js"></script> 
     <script src="../bundle.js"></script>
     <style type="text/css">
         body {
@@ -47,9 +47,6 @@
             baseLayer: {
                 ignoreLayerIds: ['04'],
                 json: './topojson/NDS_Kreise_Waben_Neu.json',
-            },
-            cityLayer: {
-                json: './topojson/NDS_Staedte.topo.json'
             },
             layers: {
                 choropleth: {

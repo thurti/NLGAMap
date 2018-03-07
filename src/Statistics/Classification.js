@@ -1,5 +1,6 @@
 import findIndex from 'lodash/findIndex';
 import {Parse} from '../Utils/Parse';
+import {Numbers} from '../Utils/Numbers';
 import geostats from 'geostats';
 
 const modes = {
@@ -15,8 +16,9 @@ export class Classification extends geostats {
 
     constructor(data) {
         super(data);
-        this.silent = true;
-        this.limits = [];
+        this.silent     = true;
+        this.limits     = [];
+        this._precision = Numbers.getPrecision(data);
     }
 
     setLimits(limits) {
@@ -50,6 +52,7 @@ export class Classification extends geostats {
             default: 
                 if (this.pop() > steps) {
                     this.limits = this[modes[mode]](steps);
+                    this.limits = this.limits.map((limit) => {return Numbers.round(limit, this._precision)});
                 } else {
                     console.error('Number of steps must be lower than number of values.');
                 }

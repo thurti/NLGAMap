@@ -1,7 +1,7 @@
 {
   "name": "nlgamap",
   "description": "JavaScript library for creating interactive thematic maps based on Leaflet.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Thomas Hurtig",
   "license": "BSD-3-Clause",
   "browserslist": "last 2 major versions, iOS >= 9.2, Android >= 4.1",
@@ -11,7 +11,7 @@
     "docs": "./node_modules/.bin/esdoc -c esdoc.json && npm run replace-version-string-docs",
     "build": "webpack --config webpack.build.js",
     "build-dist": "npm run docs && npm run zip-dist && npm run create-htaccess",
-    "zip-dist": "cd dist && zip -q -r ../manual/NLGAMap_%npm_package_version%.zip *",
+    "zip-dist": "cd dist && zip -q -r ../manual/NLGAMap_%npm_package_version%.zip *.js",
     "replace-version-string-docs": "./node_modules/.bin/replace \"%VERSION%\" \"%npm_package_version%\" manual/index.html manual/manual -r --include=\"*.html\"",
     "create-htaccess": "echo RewriteEngine On > manual/.htaccess && echo RewriteRule ^NLGAMap_latest.zip$ NLGAMap_%npm_package_version%.zip [L] >> manual/.htaccess"
   },

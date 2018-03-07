@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../../node_modules/leaflet/dist/leaflet.css">
-    <script src="../../dist/js/NLGAMap/nlga.polyfills.min.js"></script> 
+    <script src="../../dist/nlga.polyfills.min.js"></script> 
     <script src="../bundle.js"></script>
     <style type="text/css">
         body {
@@ -149,6 +149,7 @@
                         }
                     }],
                     symbols: [{
+                        json: './topojson/BarPositions.json',
                         layerName: 'myTest',
                         title: 'Tendenz',
                         data: data_symbol,

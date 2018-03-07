@@ -17,10 +17,8 @@
                 <defs>
                     <linearGradient id="gradient">
                     <% 
-                        var single_offset = 100 / gradientValues.length;
-
                         gradientValues.forEach(function (value, idx) {
-                            var offset = single_offset * idx,
+                            var offset = stepWidth * idx,
                             color = _chromaFunction(value);
                     %>
                             <stop offset="<%= offset %>%" stop-color="<%= color %>" />
