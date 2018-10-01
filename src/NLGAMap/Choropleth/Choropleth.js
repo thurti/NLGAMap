@@ -324,8 +324,18 @@ export class Choropleth {
         const rainbow    = new Rainbow(),
               hex_colors = this.colors.classes.map(Color.rgbToHex);
 
+        let min, max;
+        
+        if (this._classification.isOpenRange(this.limits)) {
+            min = this.limits[1];
+            max = this.limits[this.limits.length - 2];
+        } else {
+            min = this.limits[0];
+            max = this.limits[this.limits.length - 1];
+        }
+
         rainbow.setSpectrum(...hex_colors);
-        rainbow.setNumberRange(...this.limits);
+        rainbow.setNumberRange(min, max);
 
         return (value) => {return '#' + rainbow.colourAt(value);};
     }
