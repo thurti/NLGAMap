@@ -6,8 +6,13 @@ export class ClassesLegend extends Legend {
     constructor(options) {
         super(options);
 
-        // this.options.modeName = this.options.mode_names[this.options.mode];
         this._tpl = (options.mode === 'text') ? legendTemplateText : legendTemplateClasses;
+
+        //@todo Remove option legend.striped
+        //@deprecated since 1.0.2
+        if (options.striped !== false) {
+            console.warn("Warning: Option 'legend.striped' is deprecated. Use legend.patterns instead. See https://www.apps.nlga.niedersachsen.de/tools/NLGAMap/manual/configuration.html#-code-legend--code- for details. ")
+        }
     }
 
     render() {

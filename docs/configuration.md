@@ -142,7 +142,7 @@ The data must be provided as an Object with the layer region id as key and a num
 
 The choropleth data keys must match the ids from `baseLayer` GeoJSON.
 
-To make a region "striped", provide the value as object and set `pattern: 'striped'`. (example below)
+To make a region "striped", provide the value as object and set `pattern: 'striped'`. (example below) You can use any pattern which is defined in `defs.patterns`.
 
 If the data contains multiple objects, the data is assumed to be a timeline where the object key is used as time reference.
 
@@ -155,7 +155,7 @@ var choropleth_data = {
     },
     456: {  //make color striped
         value: 13,
-        striped: true
+        pattern: 'striped'
     }
     ...
 };
@@ -199,7 +199,8 @@ var choroleth_data_timeline = {
 | legend.ignoredLayers | String or Boolean | `false` | Ignored layers text in legend. Set to `false` to hide in legend. |
 | legend.modeName | Boolean | `true` | Display name of selected classification mode in legend. |
 | legend.modeNameText | String | `'Classification'` | Text to show before mode name. |
-legend.striped | Boolean or String | `false` | Show striped icon in legend with given text. |
+| legend.striped | Boolean or String | `false` | **deprecated (use legend.patterns)** Show striped icon in legend with given text. |
+| legend.patterns | Object[] | | Array of patterns to show in legend. eg. `[{id: 'striped', text: 'My striped categgory}, {id: 'striped_thin', text: 'my thin cat'}, ...]`|
 | **popup** | Object | | Popup options. For more options see http://leafletjs.com/reference-1.3.0.html#popup |
 | popup.closeButton | Boolean | `false` | |
 | popup.offset | L.point | `L.point(0, -5)` | |
@@ -324,12 +325,13 @@ Set to `false` to disable popup for specific layer.
 ### `legend`
 For all options see http://leafletjs.com/reference-1.3.0.html#control .
 
-Set to `false` to disable popup for specific layer.
+Set to `false` to disable legend for specific layer.
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | position | String | 'bottomright' | Legend position. Possible values `['topleft', 'topright', 'bottomleft', 'bottomright']` |
-| striped | String, Boolean | `false` | Add stripe pattern legend entry. |
+| striped | String, Boolean | `false` | **deprecated (use legend.patterns**) Add stripe pattern legend entry. |
+| patterns | Object[] | | Array of patterns to show in legend. eg. `[{id: 'striped', text: 'My striped categgory}, {id: 'striped_thin', text: 'my thin cat'}, ...]`|
 | additional | String | `''` | Html to be added after last legend entry. |
 | infoText | String | `''` | Information popup text after legend title. |
 | template | String | | Custom popup html template. Variables can be use in form of `${name}`. See examples for details. |

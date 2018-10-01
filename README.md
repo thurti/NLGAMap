@@ -128,4 +128,3 @@ This project is licensed under the BSD 3-Clause License - see the [LICENSE.md](L
     - SVG, PNG export
     - WFM Layer integration
     - multiple choropleth layers
-    - replace "striped" option in Legend with more flexible {patterns: [{pattern: 'striped', color: '...', text: 'my category'}, {...}]}

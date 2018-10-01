@@ -9,6 +9,7 @@ export const defaults = {
     modeName: true,
     modeNameText: 'Classification',
     separator: ' &ndash; ',
+    patterns: [],
     statistics: {
         min: false,
         max: false,
