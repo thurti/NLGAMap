@@ -25,7 +25,7 @@
             ]
             <circle cx="<%= r %>" cy="<%= c_y %>" r="<%= r %>" style="<%= style%>"></circle>
             <line x1="<%= r %>" y1="<%= offset_top +1 %>" x2="<%=line_w %>" y2="<%= offset_top +1 %>"></line>
-            <text x="<%=line_w + 4 %>" y="<%= offset_top +1 %>"><%= bounds[1] %><%= unit %></text>
+            <text x="<%=line_w + 4 %>" y="<%= offset_top +1 %>"><%= bounds[1].toLocaleString() %><%= unit %></text>
 
 
             <%
@@ -37,7 +37,7 @@
             %>
             <circle cx="<%= r %>" cy="<%= c_y %>" r="<%= r_s %>" style="<%= style%>"></circle>
             <line x1="<%= r %>" y1="<%= line_y %>" x2="<%=line_w%>" y2="<%= line_y %>"></line>
-            <text x="<%=line_w + 4 %>" y="<%= line_y %>"><%= bounds[0] %><%= unit %></text>
+            <text x="<%=line_w + 4 %>" y="<%= line_y %>"><%= bounds[0].toLocaleString() %><%= unit %></text>
 
         </svg>
 
@@ -48,7 +48,7 @@
     <% for (var prop in statistics) { 
         if (statistics[prop] !== false) {
     %>
-        <li class="nlga_map-legend__modeName"><%= statistic_names[prop] %>: <%= statistics[prop] %><%= unit %></li>
+        <li class="nlga_map-legend__modeName"><%= statistic_names[prop] %>: <%= statistics[prop].toLocaleString() %><%= unit %></li>
     <%  }
     } %>
 

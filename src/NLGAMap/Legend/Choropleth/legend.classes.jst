@@ -17,18 +17,18 @@
 
             <% if (limit === limits[idx+1]) { %>
                 <li>
-                    <svg class="nlga_map-legend__color"><rect width="100%" height="100%" style="fill:<%= colors.classes[idx] %>"/></svg>&nbsp;&nbsp;&nbsp;&nbsp;<%= limit %><%= unit %>
+                    <svg class="nlga_map-legend__color"><rect width="100%" height="100%" style="fill:<%= colors.classes[idx] %>"/></svg>&nbsp;&nbsp;&nbsp;&nbsp;<%= limit.toLocaleString() %><%= unit %>
                 </li>
             <% } else { %>
                 <li>
-                    <svg class="nlga_map-legend__color"><rect width="100%" height="100%" style="fill:<%= colors.classes[idx] %>"/></svg>&nbsp;&nbsp;&nbsp;&nbsp;<%= limit %><% if(limit) print(unit) %> bis <%= limits[idx+1] %><%= unit %>
+                    <svg class="nlga_map-legend__color"><rect width="100%" height="100%" style="fill:<%= colors.classes[idx] %>"/></svg>&nbsp;&nbsp;&nbsp;&nbsp;<%= limit.toLocaleString() %><% if(limit) print(unit) %> bis <%= limits[idx+1].toLocaleString() %><%= unit %>
                 </li>
             <% } %>   
 
         <% } else if (idx !== last) { %>
 
             <li>
-                <svg class="nlga_map-legend__color"><rect width="100%" height="100%" style="fill:<%= colors.classes[idx] %>"/></svg> &gt; <%= limit %><%= unit %> <% if (limits[idx+1]) { %> bis <%= limits[idx+1] %><%= unit %> <% } %>
+                <svg class="nlga_map-legend__color"><rect width="100%" height="100%" style="fill:<%= colors.classes[idx] %>"/></svg> &gt; <%= limit.toLocaleString() %><%= unit %> <% if (limits[idx+1]) { %> bis <%= limits[idx+1].toLocaleString() %><%= unit %> <% } %>
             </li>
 
         <% } %>
@@ -48,7 +48,7 @@
     <% for (var prop in statistics) { 
         if (statistics[prop] !== false) {
     %>
-        <li class="nlga_map-legend__modeName"><%= statistic_names[prop] %>: <%= statistics[prop] %><%= unit %></li>
+        <li class="nlga_map-legend__modeName"><%= statistic_names[prop] %>: <%= statistics[prop].toLocaleString() %><%= unit %></li>
     <%  }
     } %>
 

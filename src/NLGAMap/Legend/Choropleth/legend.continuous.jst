@@ -29,8 +29,8 @@
             </svg>
 
             <span class="nlga_map-legend__marker <%= colorScheme %>" style="width:<%= stepWidth %>%;"></span>
-            <span class="min"><%= min %><%= unit %></span>
-            <span class="max"><%= max %><%= unit %></span>
+            <span class="min"><%= min.toLocaleString() %><%= unit %></span>
+            <span class="max"><%= max.toLocaleString() %><%= unit %></span>
         </div>
     </li>
 
@@ -43,7 +43,7 @@
     <% for (var prop in statistics) { 
         if (statistics[prop] !== false) {
     %>
-        <li class="nlga_map-legend__modeName"><%= statistic_names[prop] %>: <%= statistics[prop] %><%= unit %></li>
+        <li class="nlga_map-legend__modeName"><%= statistic_names[prop] %>: <%= statistics[prop].toLocaleString() %><%= unit %></li>
     <%  }
     } %>
 
