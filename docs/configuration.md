@@ -334,7 +334,8 @@ Set to `false` to disable popup for specific layer.
 | infoText | String | `''` | Information popup text after legend title. |
 | template | String | | Custom popup html template. Variables can be use in form of `${name}`. See examples for details. |
 | ignoredLayers | String or Boolean | `false` | Ignored layers text in legend. Set to `false` to hide in legend. |
-| noData | Boolean | `true` | Show "Keine Daten" in legend.
+| noData | Boolean | `true` | Show "No Data" in legend.
+| separator | String | ` &ndash; ` | Separator string between classes in legend. |
 | modeName | Boolean | `true` | Show classification mode name in legend. **Only for choropleth layer.**|
 | **mode_names** | Object | | Display name for specific mode. |
 | mode_names.equal | String | `'Equal'` | Display name for mode equal. |

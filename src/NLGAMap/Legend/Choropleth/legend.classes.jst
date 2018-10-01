@@ -21,14 +21,14 @@
                 </li>
             <% } else { %>
                 <li>
-                    <svg class="nlga_map-legend__color"><rect width="100%" height="100%" style="fill:<%= colors.classes[idx] %>"/></svg>&nbsp;&nbsp;&nbsp;&nbsp;<%= limit.toLocaleString() %><% if(limit) print(unit) %> bis <%= limits[idx+1].toLocaleString() %><%= unit %>
+                    <svg class="nlga_map-legend__color"><rect width="100%" height="100%" style="fill:<%= colors.classes[idx] %>"/></svg>&nbsp;&nbsp;&nbsp;&nbsp;<%= limit.toLocaleString() %><% if(limit) print(unit) %><%= separator %><%= limits[idx+1].toLocaleString() %><%= unit %>
                 </li>
             <% } %>   
 
         <% } else if (idx !== last) { %>
 
             <li>
-                <svg class="nlga_map-legend__color"><rect width="100%" height="100%" style="fill:<%= colors.classes[idx] %>"/></svg> &gt; <%= limit.toLocaleString() %><%= unit %> <% if (limits[idx+1]) { %> bis <%= limits[idx+1].toLocaleString() %><%= unit %> <% } %>
+                <svg class="nlga_map-legend__color"><rect width="100%" height="100%" style="fill:<%= colors.classes[idx] %>"/></svg> &gt; <%= limit.toLocaleString() %><%= unit %><% if (limits[idx+1]) { %><%= separator %><%= limits[idx+1].toLocaleString() %><%= unit %> <% } %>
             </li>
 
         <% } %>

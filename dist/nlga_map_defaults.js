@@ -73,6 +73,7 @@ window.nlga_map_legend_defaults = {
     ignoredLayers: 'Bremen/<br>Bremerhaven',
     noData: 'keine Daten',
     modeNameText: 'Klassifizierung',
+    separator: ' bis ',
     statistic_names: {
         min: 'Minimum',
         max: 'Maximum',

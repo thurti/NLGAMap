@@ -8,6 +8,7 @@ export const defaults = {
     markerNames: [],
     modeName: true,
     modeNameText: 'Classification',
+    separator: ' &ndash; ',
     statistics: {
         min: false,
         max: false,
