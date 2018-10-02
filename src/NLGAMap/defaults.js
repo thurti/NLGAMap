@@ -25,9 +25,8 @@ export const defaults = {
         styles: {
             weight: 1,
             color: 'rgba(150,150,150,1)',
-            opacity: 0.5,
+            opacity: 1,
             fillColor: '#337AB7',
-            fillOpacity: 1,
             hover: {
                 color: '#ff7f00',
                 weight: 2,

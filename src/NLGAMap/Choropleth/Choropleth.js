@@ -241,9 +241,10 @@ export class Choropleth {
         }
     }
 
-    _setLayerColor(layer, color) {
+    _setLayerColor(layer, color, opacity = this.options.opacity) {
         layer.setStyle({
-            fillColor: color
+            fillColor: color,
+            fillOpacity: opacity
         });
     }
 

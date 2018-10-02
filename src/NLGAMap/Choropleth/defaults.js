@@ -17,7 +17,8 @@ export const defaults = {
         autoPan: false,
         textNotFound: 'no data'
     },
-    timeline: false
+    timeline: false,
+    opacity: 1
 };
 
 export const modes = {

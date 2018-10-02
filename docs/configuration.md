@@ -191,6 +191,7 @@ var choroleth_data_timeline = {
 | limits | Array | | Class limits. Can only be set in modes `text` and `manual`. |
 | timeline | Object or Boolean | `false` | Timeline options or false if no time data. |
 | layerCallback | function (layer, value) | null | Callback on every layer. Useful for setting custom colors, popup ect. for specific values. |
+| opacity | Float | `1` | Set opacity between 0 and 1.|
 | **colors** | Object | | Color definitions. |
 | colors.notFound | Object | `{color: 'rgb(100,100,100)', pattern: ''}` | This color is used, if no data is found for a region id. |
 | **colors[colorScheme]** | Object | | Each color scheme is defined as an object. |
