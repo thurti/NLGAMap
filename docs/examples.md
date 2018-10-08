@@ -183,6 +183,13 @@ customIcon: function (value) {
 <div class="fiddleEmbed">//jsfiddle.net/nlga/nmvbb0qr/embed/result,js,html,css/</div>
 
 
+## Tiles
+You can add a tile layer from a Web Map Tile Service like Open Street Map.
+
+[Open Street Map Example](https://jsfiddle.net/nlga/cqo2b49v/)
+<div class="fiddleEmbed">//jsfiddle.net/nlga/cqo2b49v/embed/result,js,html,css/</div>
+
+
 ## Timeline
 The `timeline` configuration object must only be set in one layer. All other layers must set `timeline: true` only (if they are time data).
 
