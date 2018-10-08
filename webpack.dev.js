@@ -5,6 +5,7 @@ const webpack              = require('webpack');
 
 
 module.exports = merge(common, {
+    mode: 'development',
     output: {
         path: path.resolve(__dirname, 'dev'),
         filename: 'bundle.js',
@@ -19,7 +20,6 @@ module.exports = merge(common, {
         hot: true
     },
     plugins: [
-        new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin()
     ]
 });
