@@ -34,6 +34,7 @@ export default class NLGAMap {
         this.choropleths = {};
         this.markerMaps  = {};
         this.symbolMaps  = {};
+        this.tileMaps    = {};
     }
 
     static get VERSION() {
@@ -77,6 +78,11 @@ export default class NLGAMap {
         this.markerMaps[options.layerName] = markerMap;
 
         return promise;
+    }
+
+    addTileMap(options) {
+        let tileMap = this.layers.addTileLayer(options);
+        this.tileMaps[options.layerName] = tileMap;
     }
 
     addChoroplethMap(options) {
@@ -186,10 +192,11 @@ export default class NLGAMap {
     }
 
     _addUserLayers() {
-        let promises = [],
-        choropleth   = this.options.layers.choropleth,
-        markers      = this.options.layers.markers,
-        symbols      = this.options.layers.symbols;
+        let promises   = [],
+            choropleth = this.options.layers.choropleth,
+            markers    = this.options.layers.markers,
+            symbols    = this.options.layers.symbols,
+            tiles      = this.options.layers.tiles;
 
         if (choropleth) {
             choropleth.map_id       = this.id;
@@ -211,6 +218,13 @@ export default class NLGAMap {
                 symbol.map_id = this.id;
                 let promise = this.addSymbolMap(symbol);
                 promises.push(promise);
+            });
+        }
+
+        if (tiles) {
+            tiles.forEach((tileMap) => {
+                tileMap.map_id = this.id;
+                this.addTileMap(tileMap);
             });
         }
 
