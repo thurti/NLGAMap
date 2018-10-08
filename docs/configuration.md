@@ -110,6 +110,7 @@ The `layers` configuration object contains the different layers added to the map
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
+| tiles | Array | | Array of tile layer objects. |
 | choropleth | Object | | Adds choropleth layer to map. Only one choropleth layer is supported by now. Multiple choropleth layer support may be added in the future. |
 | markers | Array | | Array of marker layer objects. |
 | symbols | Array | | Array of symbol layer objects. |
@@ -133,6 +134,13 @@ The basic options are all the same for `choropleth`, `marker` and `symbol` layer
 | layerControl | Object | | Layer control options. |
 
 
+### `tiles`
+Loads tile layers on the map from given options.  It is basicaly a wrapper for `L.tileLayer`. See https://leafletjs.com/reference-1.3.0.html#tilelayer for all options.
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| url | String | | URL to Web Map Tiles Service (WMTS; eg. Open Street Map). |
+| layerControl.name | String | `'map'` | |
 
 ### `choropleth`
 The choropleth layer colors a specific map region by finding a color for a given value.

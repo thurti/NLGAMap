@@ -37,6 +37,18 @@ window.nlga_map_global_defaults = {
         }
     },
     layers: {
+        tiles: [{
+            layerName: 'bkg',
+            url: 'https://sgx.geodatenzentrum.de/wmts_topplus_web_open/tile/1.0.0/{id}/{Style}/{TileMatrixSet}/{z}/{y}/{x}.png',
+            id: 'web_grau',
+            Style: 'default',
+            TileMatrixSet: 'WEBMERCATOR',
+            attribution: '<a href="http://sg.geodatenzentrum.de/web_public/Datenquellen_TopPlus_Open.pdf">Datenquellen</a>',
+            layerControl: {
+                activate: false,
+                name: 'Landkarte'
+            }
+        }],
         choropleth: {
             popup: {
                 textNotFound: 'keine Daten'

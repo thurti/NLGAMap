@@ -2,6 +2,7 @@ import each from 'lodash/each';
 import {Controls} from './Controls';
 import {MarkerLayer} from './MarkerLayer';
 import {RegionLayer} from './RegionLayer';
+import {TileLayer} from './TileLayer';
 import {Timeline} from '../Timeline/Timeline';
 
 export class Layers {
@@ -42,6 +43,15 @@ export class Layers {
                                      .then(this._onLayerLoaded.bind(this));
 
         return promise;
+    }
+
+    addTileLayer(options) {
+        let tileLayer = new TileLayer(options),
+            layer     = tileLayer.create();
+
+        this._onLayerLoaded(layer);
+
+        return layer;
     }
 
     addTimeline(options) {
