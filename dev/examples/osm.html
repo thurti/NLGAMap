@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../node_modules/leaflet/dist/leaflet.css">
+    <script src="../../dist/nlga.polyfills.min.js"></script> 
+    <script src="../bundle.js"></script>
+    <style type="text/css">
+        body {
+            font-family: arial;
+        }
+        
+        #nlga_map{
+            width: 720px;
+            height: 650px;
+            margin: 3rem auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Open Street Map Example</h1>
+    <div id="nlga_map"></div>
+
+    <script type="text/javascript">
+
+        var map = new NLGAMap({
+            id: 'nlga_map',
+            map: {
+                center: [52.6, 9.1],
+                zoom: 7.5,
+                controls: {
+                    attribution: {
+                        text: '© GeoBasis-DE / <a href="http://www.bkg.bund.de/">BKG</a> 2017 (Daten verändert)'
+                    }
+                }
+            },
+            baseLayer: {
+                ignoreLayerIds: ['04'],
+                json: './topojson/BKG_NDS_Kreise_vg2500_G_Oe_Ost.topo.json',
+            },
+            cityLayer: {
+                json: './topojson/NDS_Staedte.topo.json'
+            },
+            layers: {
+                tiles: [{
+                    url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    layerControl: {
+                        name: 'Open Street Map'
+                    },
+                    attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+                }]
+            }
+        });
+
+        map.render();
+
+    </script>
+</body>
+</html>
