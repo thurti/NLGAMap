@@ -9,6 +9,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 
 module.exports = merge(common, {
+    mode: 'production',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].min.js',
@@ -18,14 +19,18 @@ module.exports = merge(common, {
     externals: {
         leaflet: 'L'
     },
-    plugins: [
-        new UglifyJSPlugin({
-            uglifyOptions: {
-                output: {
-                    comments: saveLicense
+    optimization: {
+        minimizer: [
+            new UglifyJSPlugin({
+                uglifyOptions: {
+                    output: {
+                        comments: saveLicense
+                    }
                 }
-            }
-        }),
+            }),
+        ]
+    },
+    plugins: [
         new webpack.DefinePlugin({
             'VERSION': JSON.stringify(PACKAGE.version),
     	    'process.env': {

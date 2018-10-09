@@ -112,7 +112,7 @@ We use [SemVer](http://semver.org/) for versioning.
 This project is licensed under the BSD 3-Clause License - see the [LICENSE.md](LICENSE.md) file for details.
 
 ## Known Bugs & ToDos
-+ get Karma to work with webpack and add some tests
++ add tests
 + fullscreen is not working when the map is loaded in an iframe
 + classes legend: marker is not working working for custom colors
 + patterns are not printed in chrome
