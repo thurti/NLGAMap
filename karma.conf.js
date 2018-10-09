@@ -1,8 +1,10 @@
-// Karma configuration
-// Generated on Tue Jun 07 2016 15:45:13 GMT+0200 (Mitteleuropäische Sommerzeit)
+const common      = require('./webpack.common.js');
+      common.mode = 'development';
 
 module.exports = function(config) {
   config.set({
+
+    webpack: common,
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: './',
@@ -53,7 +55,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_ERROR,
 
 
     // enable / disable watching file and executing tests whenever any file changes
