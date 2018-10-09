@@ -8,6 +8,7 @@ var map = new NLGAMap({
     baseLayer: {...},
     cityLayer: {...},
     layers: {
+        tiles: [{}, ...],
         choropleth: {},
         markers: [{}, ...],
         symbols: [{}, ...]
@@ -217,10 +218,10 @@ var choroleth_data_timeline = {
 
 
 ### `marker`
-The marker layer adds circle to a specific positions (lat/lon). You can customize the markers apperance through css. You can also provide a `customIcon()` callback function to .
+The marker layer adds a circle marker to a specific positions (lat/lon). You can customize the markers apperance through css. You can also provide a `customIcon()` callback function.
 
 #### Data format
-The data must be provided as **geojson** FeatureCollection. The value must be stored under `properties.value`. The name property name can be set through the marker layer options.
+The data must be provided as **geojson** FeatureCollection. The value must be stored under `properties.[valuePropPath]`. The "name" and "value" property name can be set through the marker layer options.
 
 The time data is stored inside the properties. The key of the time value  must match the `timeKey` property in the marker layer configuration object.
 
@@ -245,9 +246,50 @@ var marker_data = {
 };
 ```
 
+#### Pie Chart Data Format
+If a marker layer is added with `type: 'pie'`, the data must contain values for the pie slices and a total value. The size of the single pie chart slices is calculated from the single values. The total value is use for calculating the pie radius (like circle markers).
+
+| Property | Type | Description |
+|----------|------|-------------|
+| value.total | Number | Used to calculate the pie chart radius and will be displayed as "total" in popup. |
+| value.slices | Array | Array of slice objects. |
+| **slice** | Object | Represents a pie chart slice. |
+| slice.label | String | Name of the slice. |
+| slice.value | Number | Value (size) of the slice. |
+| slice.color | String | Color of the slize. Can be hex, rgb() or HTMl color. |
+| slice.style | String | Custom SVG-styles (like stroke-width, opacity, ...) for slice. |
+
+```
+var marker_data = {
+    type: "FeatureCollection",
+    features: [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [lng, lat]
+            },
+            "properties": {
+                "name": "MyName",
+                "value": {
+                    "total": 24,
+                    "slices": [
+                        {"label": "A", "value": 24.4, "color": "red"},
+                        ...
+                    ]
+                }
+            }
+        },
+        ...
+    ]
+};
+```
+
+
 #### Options
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
+| type | String | `'circle'` | Type of marker. `['circle', 'pie']` |
 | timeKey | String | `''` | Key that matches the time value key in the data object. |
 | maxRadius | Number | `20` | Maximum circle radius. |
 | scale | String | `'linear'` | Scaling type of the circle. Possible values `['log', 'linear']` |
@@ -255,10 +297,13 @@ var marker_data = {
 | power_function_exponent | Number | `0.58` | |
 | order | Number | `null` | Sets the order, if multiple marker layers are added. | 
 | style | String | `'fill: rgba(224, 0, 60, 0.8)'` | Set css styles for the circle marker. The apperance of the marker can also be changed through css.|
+| precision | Integer | | Number of decimals for calculated percent values. **(only used for `type: 'pie'`)** |
+| valuePropPath | String | `'value'` | A string or object path where to find the real "value" in the geojson properties. (eg. `value.data`) |
 | customIcon | function (value) | | Function that returns an leaflet Icon (eg. `L.icon()`) based on the given `value`. |
 | timeline | Object or Boolean | `false` | Timeline options or false if no time data. |
 | **legend** | Object or Boolean | | Legend options or false for no legend. |
 | legend.ignoredLayers | String or Boolean | `false` | Ignored layers text in legend. Set to `false` to hide in legend. |
+| popup.total| String | `'Total: '` | Label for total value in popup.  **(only used for `type: 'pie'`)** | 
 
 
 

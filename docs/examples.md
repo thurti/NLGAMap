@@ -130,10 +130,14 @@ layerCallback: function (layer, value) {
 
 ## Marker
 
-### Basic Marker
+### Basic Circle Marker
 
 [Basic Marker Example](https://jsfiddle.net/nlga/pfnmw0oo/)
 <div class="fiddleEmbed">//jsfiddle.net/nlga/pfnmw0oo/embed/result,js,html,css/</div>
+
+### Pie Chart Marker
+[Pie Chart Marker Example](https://jsfiddle.net/nlga/be0dyov7/)
+<div class="fiddleEmbed">//jsfiddle.net/nlga/be0dyov7/embed/result,js,html,css/</div>
 
 ### Custom Icon Callback
 You can use CSS to change the markers or symbols appearance. The standard marker has the CSS class `.nlga_map-point-marker nlga_map-marker-icon`.
