@@ -58,7 +58,7 @@
     "mocha": "~5.2.0",
     "replace": "^1.0.0",
     "sinon": "~6.3.5",
-    "style-loader": "^0.23.0",
+    "style-loader": "^0.23.1",
     "uglify-save-license": "^0.4.1",
     "uglifyjs-webpack-plugin": "^2.0.1",
     "underscore-template-loader": "^1.0.0",
