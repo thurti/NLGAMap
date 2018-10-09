@@ -11,6 +11,7 @@ import {SVGRectPattern} from '../Utils/SVGRectPattern';
 
 import {Layers} from './Layers/Layers';
 import {MarkerMap} from './Marker/MarkerMap/MarkerMap';
+import {PieMap} from './Marker/MarkerMap/MarkerMap.Pie';
 import {SymbolArrows} from './Marker/SymbolMap/Arrows/SymbolArrows';
 import {SymbolBars} from './Marker/SymbolMap/Bars/SymbolBars';
 import {Choropleth} from './Choropleth/Choropleth';
@@ -72,7 +73,7 @@ export default class NLGAMap {
     }
 
     addMarkerMap(options) {
-        let markerMap = new MarkerMap(options, this.layers),
+        let markerMap = (options.type === 'pie') ? new PieMap(options, this.layers) : new MarkerMap(options, this.layers),
         promise       = markerMap.addLegendTo(this.leaflet).render();
 
         this.markerMaps[options.layerName] = markerMap;

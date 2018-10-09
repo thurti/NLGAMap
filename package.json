@@ -55,6 +55,7 @@
     "karma-phantomjs-launcher": "~1.0.4",
     "karma-sinon": "~1.0.5",
     "karma-webpack": "^4.0.0-rc.2",
+    "leaflet-piemarker": "github:nlga/leaflet-piemarker",
     "mocha": "~5.2.0",
     "replace": "^1.0.0",
     "sinon": "~6.3.5",
