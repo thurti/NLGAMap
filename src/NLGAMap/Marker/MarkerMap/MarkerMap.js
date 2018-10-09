@@ -5,6 +5,7 @@ import each from 'lodash/each';
 import flatten from 'lodash/flatten'; 
 import template from 'lodash/template'; 
 import map from 'lodash/map';
+import get from 'lodash/get';
 
 import {MarkerBase} from '../MarkerBase';
 import {TimelineParser} from '../../Timeline/TimelineParser';
@@ -28,6 +29,7 @@ export class MarkerMap extends MarkerBase {
         this.options = opts;
 
         this._layerName       = opts.layerName;
+        this._valuePropPath   = opts.valuePropPath;
         this._timeKey         = opts.timeKey;
         this._customIcon      = opts.customIcon;
         this._legendTemplate  = (opts.legend && opts.legend.template) ? template(opts.legend.template) : legendTemplate;
@@ -97,9 +99,9 @@ export class MarkerMap extends MarkerBase {
     _getBounds(data) {
         let flat_data = (this._timeline) ? this._flattenData(data) : data.features;
         
-        let values = flat_data.map(function (obj) {
+        let values = flat_data.map((obj) => {
             if (obj && obj.properties){
-                return parseFloat(obj.properties.value); 
+                return parseFloat(get(obj.properties, this._valuePropPath)); 
             }
         });
 
@@ -125,14 +127,14 @@ export class MarkerMap extends MarkerBase {
         if (this._timeline) {
             data = map(parsedData, (o) => {
                 return map(o, (d) => {
-                    return d.properties.value;
+                    return get(d.properties, this._valuePropPath);
                 });
             });
             
             data = flatten(data);
         } else {
             data = map(parsedData.features, (d) => {
-                        return d.properties.value;
+                        return get(d.properties, this._valuePropPath);
                     });
         }
 
