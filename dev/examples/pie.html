@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../node_modules/leaflet/dist/leaflet.css">
+    <script src="../../dist/nlga.polyfills.min.js"></script> 
+    <script src="../bundle.js"></script>
+    <style type="text/css">
+        body {
+            font-family: arial;
+        }
+
+        #nlga_map{
+            width: 720px;
+            height: 650px;
+            margin: 3rem auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pie Marker Map</h1>
+    <div id="nlga_map"></div>
+
+    <script type="text/javascript">
+        var test_data = {
+            type: 'FeatureCollection',
+            features: [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [10.559425,52.971047]
+                    },
+                    "properties": {
+                        "name": 'Uelzen',
+                        "value": {
+                            total: 20,
+                            slices: [
+                                {label: 'Label A', value: 0.05, color: 'rgba(0,12,50,0.75)'},
+                                {label: 'Label B', value: 0.05, color: 'green'},
+                                {label: 'Label C', value: 0.3, color: 'blue'},
+                                {label: 'Label D', value: 0.3, color: 'green'},
+                                {label: 'Label E', value: 0.2, color: '#00fffff'},
+                            ]
+                        }
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [8.209413,53.141958]
+                    },
+                    "properties": {
+                        "name": 'Oldenburg',
+                        "value": {
+                            total: 50,
+                            slices: [
+                                {label: 'Label A', value: 0.05, color: 'rgba(0,12,50,0.75)'},
+                                {label: 'Label B', value: 0.05, color: 'green'},
+                                {label: 'Label C', value: 0.3, color: 'blue'},
+                                {label: 'Label D', value: 0.3, color: 'green'},
+                                {label: 'Label E', value: 0.2, color: '#00fffff'},
+                            ]
+                        }
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [9.8218518831934, 52.4502857746789]
+                    },
+                    "properties": {
+                        "name": 'Hannover',
+                        "value": {
+                            total: 100,
+                            slices: [
+                                {label: 'Label A', value: 0.05, color: 'rgba(0,12,50,0.75)'},
+                                {label: 'Label B', value: 0.05, color: 'green'},
+                                {label: 'Label C', value: 0.3, color: 'blue'},
+                                {label: 'Label D', value: 0.3, color: 'green'},
+                                {label: 'Label E', value: 0.2, color: '#00fffff'},
+                            ]
+                        }
+                    }
+                }
+            ]
+        };
+
+        var map = new NLGAMap({
+            id: 'nlga_map',
+            map: {
+                center: [52.6, 9.1],
+                zoom: 7.5,
+                controls: {
+                    attribution: {
+                        text: '© GeoBasis-DE / <a href="http://www.bkg.bund.de/">BKG</a> 2017 (Daten verändert)'
+                    }
+                }
+            },
+            baseLayer: {
+                ignoreLayerIds: ['04'],
+                json: './topojson/BKG_NDS_Kreise_vg2500_G_Oe_Ost.topo.json',
+            },
+            layers: {
+                markers: [{
+                    type: 'pie',
+                    layerName: 'myTest',
+                    title: 'My Title',
+                    data: test_data,
+                    unit: '',     
+                    precision: 0, //percent precision
+                    style: 'fill: #cdcdcd', //legend circle color
+                    maxRadius: 50,  //size of largest circle
+                    layerControl: {
+                        name: 'Test'
+                    }
+                }]
+            }
+        });
+
+        map.render();
+
+    </script>
+</body>
+</html>
