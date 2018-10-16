@@ -106,6 +106,7 @@ export class Timeline {
     }
 
     remove() {
+        this.stop();
         this.controls.removeListeners(this._listeners);
         this.controls.remove();
 
