@@ -27,10 +27,12 @@ export const defaults = {
             color: 'rgba(150,150,150,1)',
             opacity: 1,
             fillColor: '#337AB7',
+            fillOpacity: 1,
             hover: {
                 color: '#ff7f00',
                 weight: 2,
-                opacity: 1
+                opacity: 1,
+                fillOpacity: 1
             }
         }
     },

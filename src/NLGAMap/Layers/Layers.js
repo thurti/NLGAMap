@@ -50,6 +50,7 @@ export class Layers {
             layer     = tileLayer.create();
 
         this._onLayerLoaded(layer);
+        this._addAutoSetChoroplethOpacity(layer, options.autoSetChoroplethOpacity);
 
         return layer;
     }
@@ -117,5 +118,26 @@ export class Layers {
 
         this[options.layerName] = layer;
         return layer;
+    }
+
+    _addAutoSetChoroplethOpacity(layer, auto_opacity) {
+        if (auto_opacity === false) return;
+
+        const opacity       = this.baselayer.options.styles.fillOpacity,
+              hover_opacity = this.baselayer.options.styles.hover.fillOpacity;
+
+        layer.on('add', () => { 
+            this.baselayer.options.styles.fillOpacity       = auto_opacity;
+            this.baselayer.options.styles.hover.fillOpacity = auto_opacity;
+            
+            this.baselayer.setStyle({fillOpacity: auto_opacity});
+        });
+        
+        layer.on('remove', () => { 
+            this.baselayer.options.styles.fillOpacity       = opacity;
+            this.baselayer.options.styles.hover.fillOpacity = hover_opacity;
+            
+            this.baselayer.setStyle({fillOpacity: opacity});
+        });
     }
 }

@@ -31,6 +31,7 @@ export const regionDefaults = {
 export const tileDefaults = {
     popup: false,
     legend: false,
+    autoSetChoroplethOpacity: 0.7,
     layerControl: {
         name: 'map'
     }
