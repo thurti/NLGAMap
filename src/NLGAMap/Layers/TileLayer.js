@@ -12,4 +12,8 @@ export class TileLayer {
         let layer = L.tileLayer(this.options.url, this.options);
         return layer;
     }
+
+    destroy() {
+        this.options = null;
+    }
 }

@@ -52,7 +52,7 @@ export class Layers {
         this._onLayerLoaded(layer);
         this._addAutoSetChoroplethOpacity(layer, options.autoSetChoroplethOpacity);
 
-        return layer;
+        return tileLayer;
     }
 
     addTimeline(options) {
@@ -134,10 +134,12 @@ export class Layers {
         });
         
         layer.on('remove', () => { 
-            this.baselayer.options.styles.fillOpacity       = opacity;
-            this.baselayer.options.styles.hover.fillOpacity = hover_opacity;
-            
-            this.baselayer.setStyle({fillOpacity: opacity});
+            if (this.baselayer) {
+                this.baselayer.options.styles.fillOpacity       = opacity;
+                this.baselayer.options.styles.hover.fillOpacity = hover_opacity;
+                
+                this.baselayer.setStyle({fillOpacity: opacity});
+            }
         });
     }
 }

@@ -149,6 +149,7 @@ export default class NLGAMap {
 
     destroy() {
         this.layers.destroy();
+        each(this.tileMaps, (tileMap) => {tileMap.destroy();});
         each(this.choropleths, (choropleth) => {choropleth.destroy();});
         each(this.markerMaps, (markerMap) => {markerMap.destroy();});
         each(this.symbolMaps, (symbolMap) => {symbolMap.destroy();});
@@ -157,6 +158,7 @@ export default class NLGAMap {
         this.options     = null;
         this.container   = null;
         this.layers      = null;
+        this.tileMaps    = null;
         this.choropleths = null;
         this.markerMaps  = null;
         this.symbolMaps  = null;
