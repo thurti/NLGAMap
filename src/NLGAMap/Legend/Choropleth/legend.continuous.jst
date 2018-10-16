@@ -34,9 +34,9 @@
         </div>
     </li>
 
-    <% if (striped !== false) { %>
-    <li><svg class="nlga_map-legend__color striped"><rect width="100%" height="100%" fill="url(#nlga_map-striped)" /></svg> <%= striped %></li>
-    <% } %>
+    <% patterns.forEach(function (pattern) { %> 
+        <li><svg class="nlga_map-legend__color <%= pattern.id %>"><rect width="100%" height="100%" fill="url(#nlga_map_<%= pattern.id %>)" /></svg> <%= pattern.text %></li>
+    <% }) %>
     
     <%= additional %>
 
@@ -47,16 +47,16 @@
     <%  }
     } %>
 
-    <% if (noData !== false) { %>
+    <% if (noData === true) { %>
     <li>
-        <svg class="nlga_map-legend__color"><rect width="100%" height="100%" style="fill:<%= colors.notFound %>"/></svg> <%= noData %>
+        <svg class="nlga_map-legend__color"><rect width="100%" height="100%" style="fill:<%= colors.notFound %>"/></svg> <%= noDataText %>
     </li>
     <% } %>
 
-    <% if (ignoredLayers !== false) { %>
+    <% if (ignoredLayers === true) { %>
     <li style="margin-top: 1em" class="clearfix">
         <svg class="nlga_map-legend__color colorIgnore"><rect width="100%" height="100%" style="fill:<%= colors.ignore %>"/></svg>
-        <div class="colorIgnore_text"><%= ignoredLayers %></div>
+        <div class="colorIgnore_text"><%= ignoredLayersText %></div>
     </li>
     <% } %>
 </ul>

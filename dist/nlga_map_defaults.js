@@ -86,8 +86,10 @@ window.nlga_map_global_defaults = {
 };
 
 window.nlga_map_legend_defaults = {
-    ignoredLayers: 'Bremen/<br>Bremerhaven',
-    noData: 'keine Daten',
+    ignoredLayers: true,
+    ignoredLayersText: 'Bremen/<br>Bremerhaven',
+    noData: true,
+    noDataText: 'keine Daten',
     modeNameText: 'Klassifizierung',
     separator: ' bis ',
     statistic_names: {
