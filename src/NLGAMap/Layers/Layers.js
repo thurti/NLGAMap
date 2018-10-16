@@ -49,8 +49,8 @@ export class Layers {
         let tileLayer = new TileLayer(options),
             layer     = tileLayer.create();
 
-        this._onLayerLoaded(layer);
         this._addAutoSetChoroplethOpacity(layer, options.autoSetChoroplethOpacity);
+        this._onLayerLoaded(layer);
 
         return tileLayer;
     }
