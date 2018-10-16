@@ -25,10 +25,7 @@ window.nlga_map_global_defaults = {
         }
     },
     baseLayer: {
-        ignoreLayerIds: ['04'],
-        styles: {
-            color: 'rgba(255, 255, 255, 1)'
-        }
+        ignoreLayerIds: ['04']
     },
     cityLayer: {
         order: 0,
