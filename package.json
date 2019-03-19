@@ -7,7 +7,7 @@
   "pirvate": true,
   "browserslist": "last 2 major versions, iOS >= 9.2, Android >= 4.1",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.dev.js --open chrome",
+    "start": "webpack-dev-server --disable-host-check --config webpack.dev.js --open chrome",
     "test": "./node_modules/.bin/karma start",
     "docs": "./node_modules/.bin/esdoc -c esdoc.json && npm run replace-version-string-docs",
     "build": "webpack --config webpack.build.js",
