@@ -1,5 +1,6 @@
 # Changelog
 
+## 1.1.0 (2019-03-19)
 - Add: marker type "pie": adds pie chart marker to the map
 - Fix karma test runner
 - Updated development dependencies (webpack, esdoc, babel, karma)
