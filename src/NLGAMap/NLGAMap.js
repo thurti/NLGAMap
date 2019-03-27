@@ -153,6 +153,12 @@ export default class NLGAMap {
         each(this.choropleths, (choropleth) => {choropleth.destroy();});
         each(this.markerMaps, (markerMap) => {markerMap.destroy();});
         each(this.symbolMaps, (symbolMap) => {symbolMap.destroy();});
+
+        if (this._zoomControl) {
+            this._zoomControl.remove();
+            this._zoomControl = null;
+        }
+
         this.leaflet.remove();
 
         this.options     = null;
@@ -169,11 +175,14 @@ export default class NLGAMap {
         if (this.leaflet) this.leaflet.remove();
         this.leaflet = L.map(this.id, mapOptions);
         
-        if (mapOptions.controls.zoom)
-            L.control.zoom(mapOptions.controls.zoom).addTo(this.leaflet);
+        if (mapOptions.controls.zoom) {
+            this._zoomControl = L.control.zoom(mapOptions.controls.zoom).addTo(this.leaflet);
+        }
 
-        if (this.options.map.fullscreenControl === true)
-            this._addFullscreenChangeListener();
+        if (this.options.map.fullscreenControl === true) {
+            this._onFullscreenChange = this._onFullscreenChange.bind(this);
+            this.leaflet.on('fullscreenchange', this._onFullscreenChange);
+        }
 
         if (L.Browser.mobile) 
             this.leaflet.dragging.disable();
@@ -234,32 +243,33 @@ export default class NLGAMap {
         return promises;
     }
 
-    _addFullscreenChangeListener() {
-        this.leaflet.on('fullscreenchange', () => {
-            if (this.leaflet.isFullscreen()) {
-                const bounds                   = this.layers[this.options.baseLayer.layerName].getBounds();
-                      this._current_zoom_level = this.leaflet.getZoom(),
-                      this._current_center     = this.leaflet.getCenter();
-                
-                this.leaflet.setMaxBounds(bounds.pad(0.5));
-                this.leaflet.setMaxZoom(10);
-                this.leaflet.fitBounds(bounds);
+    _onFullscreenChange() {
+        if (this.leaflet.isFullscreen()) {
+            const bounds             = this.layers[this.options.baseLayer.layerName].getBounds();
+            this._current_zoom_level = this.leaflet.getZoom();
+            this._current_center     = this.leaflet.getCenter();
+            
+            this.leaflet.setMaxBounds(bounds.pad(0.5));
+            this.leaflet.setMaxZoom(10);
+            this.leaflet.fitBounds(bounds);
 
-                if (L.Browser.mobile)
-                    this.leaflet.dragging.enable();
-            } else {
-                this.leaflet.setMaxBounds(this.options.map.maxBounds);
-                this.leaflet.setMaxZoom(this.options.map.maxZoom);
-                
-                this.leaflet.setView(this._current_center, this._current_zoom_level, {animate: false});
-
-                if (this.options.map.fitBounds === true)
-                    this.leaflet.fitBounds(this.layers[this.options.baseLayer.layerName].getBounds());
-
-                if (L.Browser.mobile)
-                    this.leaflet.dragging.disable();
+            if (L.Browser.mobile) {
+                this.leaflet.dragging.enable();
             }
-        });
+        } else {
+            this.leaflet.setMaxBounds(this.options.map.maxBounds);
+            this.leaflet.setMaxZoom(this.options.map.maxZoom);
+            
+            this.leaflet.setView(this._current_center, this._current_zoom_level, {animate: false});
+
+            if (this.options.map.fitBounds === true) {
+                this.leaflet.fitBounds(this.layers[this.options.baseLayer.layerName].getBounds());
+            }
+
+            if (L.Browser.mobile) {
+                this.leaflet.dragging.disable();
+            }
+        }
     }
 
     _addDefs(patterns, colors) {
