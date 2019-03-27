@@ -1,5 +1,3 @@
-import {Events} from '../../Utils/Events';
-
 import {defaults} from  './defaults';
 import controlTemplate from './control.jst';
 import EventEmitter from 'wolfy87-eventemitter/EventEmitter';
@@ -27,7 +25,9 @@ L.Control.Timeline = L.Control.extend({
         this._spanCurrentTime = container.querySelector('.currentTime .time');
 
         L.DomEvent.on(container, 'click', this._handleClick, this);
-        Events.onRangeChange(this._inputSeek, this._handleSeek.bind(this));
+        L.DomEvent.on(this._inputSeek, 'input', this._handleSeek, this);
+        L.DomEvent.on(this._inputSeek, 'change', this._handleSeek, this);
+        
         L.DomEvent.disableClickPropagation(container);
         L.DomEvent.disableClickPropagation(this._inputSeek);
 
@@ -43,6 +43,8 @@ L.Control.Timeline = L.Control.extend({
         if (!container) return;
 
         L.DomEvent.off(container, 'click', this._handleClick, this);
+        L.DomEvent.off(this._inputSeek, 'input', this._handleSeek, this);
+        L.DomEvent.off(this._inputSeek, 'change', this._handleSeek, this);
         container.parentNode.removeChild(container);
 
         this._inputSeek       = null;
