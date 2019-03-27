@@ -56,7 +56,8 @@
                     data: test_data,
                     layerCallback: myLayerCallback, //function is called for each region
                     legend: {
-                        ignoredLayers: 'Bremen',
+                        ignoredLayers: true,
+                        ignoredLayersText: 'Bremen',
                         additional: '<li><svg class="nlga_map-legend__color"><rect width="100%" height="100%" style="fill:gold"></rect></svg> eigene Kategorie</li>'
                     }
                 }
