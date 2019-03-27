@@ -28,8 +28,7 @@
     "leaflet-piemarker": "github:nlga/leaflet-piemarker",
     "lodash": "^4.17.11",
     "rainbowvis.js": "^1.0.1",
-    "topojson-client": "^3.0.0",
-    "wolfy87-eventemitter": "^5.2.6"
+    "topojson-client": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",

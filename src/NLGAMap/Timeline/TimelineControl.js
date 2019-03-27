@@ -1,12 +1,11 @@
 import {defaults} from  './defaults';
 import controlTemplate from './control.jst';
-import EventEmitter from 'wolfy87-eventemitter/EventEmitter';
 import './style.css';
 import './icons.css';
 
 L.Control.Timeline = L.Control.extend({
     
-    includes: EventEmitter.prototype,
+    includes: L.Evented.prototype,
 
     options: defaults.controls,
 
@@ -57,7 +56,7 @@ L.Control.Timeline = L.Control.extend({
         let action = e.target.dataset.action;
 
         if (action !== 'seek')
-            this.trigger(action, [e.target]);
+            this.fire(action);
 
         switch (action) {
             case 'prev':
@@ -80,7 +79,7 @@ L.Control.Timeline = L.Control.extend({
 
     _handleSeek(e) {
         let newTime = this._seekToTime(this.options.times, e.target.value);
-        this.trigger('seek', [newTime]);
+        this.fire('seek', {time: newTime});
         this.setPlayButtonState('pause');
     },
 
@@ -96,10 +95,10 @@ L.Control.Timeline = L.Control.extend({
         let btn = this.getContainer().querySelector('[data-action="play"]');
 
         if (btn.classList.contains('nlga_map-timeline-icon-play')) {
-            this.trigger('start');
+            this.fire('start');
             this.setPlayButtonState('play', btn);
         } else {            
-            this.trigger('stop');
+            this.fire('stop');
             this.setPlayButtonState('pause', btn);
         }
     },

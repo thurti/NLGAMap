@@ -1,10 +1,8 @@
 import defaultsDeep from 'lodash/defaultsDeep';
-import clone from 'lodash/clone';
 import each from 'lodash/each';
-import EventEmitter from 'wolfy87-eventemitter/EventEmitter';
 import {Timer} from '../../Utils/Timer';
 import {defaults} from './defaults';
-import {TimelineControl} from './TimelineControl';
+import './TimelineControl';
 
 export class Timeline {
 
@@ -56,7 +54,7 @@ export class Timeline {
     }
 
     setTime(time) {
-        this.currentTime = time;
+        this.currentTime = time.toString();
         this.controls.setTime(time);
         this._callOnTimeChangeCallbacks(time);
     }
@@ -86,8 +84,10 @@ export class Timeline {
         this._listeners = {
             'start': this.start.bind(this),
             'stop' : this.stop.bind(this),
-            'prev' : [this.stop.bind(this), this.prev.bind(this)],
-            'next' : [this.stop.bind(this), this.next.bind(this)],
+            'prev' : this.stop.bind(this),
+            'prev' : this.prev.bind(this),
+            'next' : this.stop.bind(this),
+            'next' : this.next.bind(this),
             'loop' : this._toggleLoopState.bind(this),
             'seek' : this._setTimeFromSeek.bind(this)
         };
@@ -99,7 +99,7 @@ export class Timeline {
             timeDomainName: this.timeDomainName
         });
 
-        this.controls.addListeners(this._listeners);
+        this.controls.on(this._listeners);
         this.controls.addTo(map);
 
         if (this.loop !== defaults.loop) this.controls.toggleLoop();
@@ -107,7 +107,7 @@ export class Timeline {
 
     remove() {
         this.stop();
-        this.controls.removeListeners(this._listeners);
+        this.controls.off(this._listeners);
         this.controls.remove();
 
         this.controls   = null;
@@ -161,9 +161,9 @@ export class Timeline {
         return [times[0], times[times.length -1]];
     }
 
-    _setTimeFromSeek(time) {
+    _setTimeFromSeek(e) {
         this.stop();
-        this.setTime(time);
+        this.setTime(e.time);
     }
 
     _getNextCallbackName() {
