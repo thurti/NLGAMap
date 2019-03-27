@@ -206,7 +206,8 @@ var choroleth_data_timeline = {
 | **colors[colorScheme]** | Object | | Each color scheme is defined as an object. |
 | colors[schemeName][step] | | | You can define different colors for specific combinations of colorScheme and number of steps. See examples... | 
 | **legend** | Object or Boolean | | Legend options or false for no legend. See Legend options for details. |
-| legend.ignoredLayers | String or Boolean | `false` | Ignored layers text in legend. Set to `false` to hide in legend. |
+| legend.ignoredLayers | Boolean | `false` | Show ignored layers text in legend. |
+| legend.ignoredLayersText | String | `''` | Text for ignored layers in legend. |
 | legend.modeName | Boolean | `true` | Display name of selected classification mode in legend. |
 | legend.modeNameText | String | `'Classification'` | Text to show before mode name. |
 | legend.striped | Boolean or String | `false` | **deprecated (use legend.patterns)** Show striped icon in legend with given text. |
@@ -302,7 +303,8 @@ var marker_data = {
 | customIcon | function (value) | | Function that returns an leaflet Icon (eg. `L.icon()`) based on the given `value`. |
 | timeline | Object or Boolean | `false` | Timeline options or false if no time data. |
 | **legend** | Object or Boolean | | Legend options or false for no legend. |
-| legend.ignoredLayers | String or Boolean | `false` | Ignored layers text in legend. Set to `false` to hide in legend. |
+| legend.ignoredLayers | Boolean | `false` | Show ignored layers text in legend. |
+| legend.ignoredLayersText | String | `''` | Text for ignored layers in legend. |
 | popup.total| String | `'Total: '` | Label for total value in popup.  **(only used for `type: 'pie'`)** | 
 
 
@@ -349,7 +351,7 @@ var symbols_data_time = {
 | timeKey | String | `''` | Key that matches the time value key in the data object. |
 | type | String | `'arrows'` | Symbol type. Possible values `['arrows', 'bars']` |
 | **legend** | Object or Boolean | | Legend options or false for no legend. |
-| legend.markerNames | Array | | | Marker names to show in the legend. |
+| legend.markerNames | Array | | Marker names to show in the legend. |
 
 
 
@@ -389,8 +391,10 @@ Set to `false` to disable legend for specific layer.
 | additional | String | `''` | Html to be added after last legend entry. |
 | infoText | String | `''` | Information popup text after legend title. |
 | template | String | | Custom popup html template. Variables can be use in form of `${name}`. See examples for details. |
-| ignoredLayers | String or Boolean | `false` | Ignored layers text in legend. Set to `false` to hide in legend. |
-| noData | Boolean | `true` | Show "No Data" in legend.
+| ignoredLayers | Boolean | `false` | Ignored layers text in legend. Set to `false` to hide in legend. |
+| ignoredLayersText | String | `''`| Text to show for ignored layers. |
+| noData | Boolean | `true` | Show "No Data" in legend. |
+| noDataText | String | `'no data'` | Text to show for no data. |
 | separator | String | ` &ndash; ` | Separator string between classes in legend. |
 | modeName | Boolean | `true` | Show classification mode name in legend. **Only for choropleth layer.**|
 | **mode_names** | Object | | Display name for specific mode. |
