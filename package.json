@@ -4,7 +4,7 @@
   "version": "1.1.0",
   "author": "Thomas Hurtig",
   "license": "BSD-3-Clause",
-  "pirvate": true,
+  "private": true,
   "browserslist": "last 2 major versions, iOS >= 9.2, Android >= 4.1",
   "scripts": {
     "start": "webpack-dev-server --disable-host-check --config webpack.dev.js --open chrome",
@@ -32,11 +32,11 @@
     "wolfy87-eventemitter": "^5.2.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.3.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.0",
     "@babel/plugin-syntax-object-rest-spread": "^7.2.0",
-    "@babel/preset-env": "^7.3.4",
-    "@babel/runtime": "^7.3.4",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/runtime": "^7.4.2",
     "ajv": "^6.10.0",
     "babel-loader": "^8.0.5",
     "chai": "~4.2.0",
@@ -59,7 +59,7 @@
     "karma-webpack": "^3.0.5",
     "mocha": "~6.0.2",
     "replace": "^1.1.0",
-    "sinon": "~7.2.7",
+    "sinon": "~7.3.1",
     "style-loader": "^0.23.1",
     "uglify-save-license": "^0.4.1",
     "uglifyjs-webpack-plugin": "^2.1.2",
