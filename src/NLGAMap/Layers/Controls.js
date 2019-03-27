@@ -19,7 +19,10 @@ export class Controls {
     }
 
     removeLayer(layer) {
-        this.layerControls.removeLayer(layer);
+        if (this.layerControls) {
+            this.layerControls.removeLayer(layer);
+        }
+        
         layer = null;
     }
 
