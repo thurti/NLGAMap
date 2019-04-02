@@ -26,4 +26,13 @@ export const regionDefaults = {
     colors: {
         ignore: {color: '#a6a6a6' , pattern: 'striped_thin'}        
     }
+};
+
+export const tileDefaults = {
+    popup: false,
+    legend: false,
+    autoSetChoroplethOpacity: 0.7,
+    layerControl: {
+        name: 'map'
+    }
 }

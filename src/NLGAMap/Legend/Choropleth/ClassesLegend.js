@@ -5,8 +5,6 @@ import legendTemplateText from './legend.classes.text.jst';
 export class ClassesLegend extends Legend {
     constructor(options) {
         super(options);
-
-        // this.options.modeName = this.options.mode_names[this.options.mode];
         this._tpl = (options.mode === 'text') ? legendTemplateText : legendTemplateClasses;
     }
 

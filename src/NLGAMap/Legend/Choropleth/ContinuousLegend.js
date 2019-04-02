@@ -47,14 +47,17 @@ export class ContinuousLegend extends Legend {
     }
 
     _getGradientValues(limits) {
-        const step_size = parseFloat('1e-' + this._precision), //create step_size size from precision (eg. 0.1)
-              values    = range(limits[0], limits[1], step_size);
+        const step_size      = parseFloat('1e-' + this._precision), //create step_size size from precision (eg. 0.1)
+              values         = range(limits[0], limits[1], step_size),
+              values_rounded = values.map((value) => {return Numbers.round(value, this._precision)});
 
-        values.push(limits[1]); //add upper limit to range
+        //add upper limit to range if not present
+        //by default range() doesn't include the upper limit, but it can be present caused by Numbers.round
+        if (values_rounded[values_rounded.length - 1] !== limits[1]) {
+            values_rounded.push(limits[1]);
+        }
 
-        return values.map((value) => {
-            return Numbers.round(value, this._precision);
-        });
+        return values_rounded;
     }
 
     _getStep() {

@@ -54,7 +54,7 @@ export class Classification extends geostats {
                     this.limits = this[modes[mode]](steps);
                     this.limits = this.limits.map((limit) => {return Numbers.round(limit, this._precision)});
                 } else {
-                    console.error('Number of steps must be lower than number of values.');
+                    console.warn('Error: Number of steps must be lower than number of values.');
                 }
 
         }

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../../node_modules/leaflet/dist/leaflet.css">
     <script src="../../dist/nlga.polyfills.min.js"></script> 
@@ -10,7 +11,7 @@
         body {
             font-family: arial;
         }
-
+        
         #nlga_map{
             width: 720px;
             height: 650px;
@@ -19,18 +20,10 @@
     </style>
 </head>
 <body>
-    <h1>Choropleth with custom limits</h1>
+    <h1>Open Street Map Example</h1>
     <div id="nlga_map"></div>
 
     <script type="text/javascript">
-        var test_data = {
-            "101": 22.1,
-            "102": 27.4,
-            "241": 1,
-            "354": 15,
-            "355": 30,
-            "356": 90
-        };
 
         var map = new NLGAMap({
             id: 'nlga_map',
@@ -51,17 +44,13 @@
                 json: './topojson/NDS_Staedte.topo.json'
             },
             layers: {
-                choropleth: {
-                    layerName: 'myTest',
-                    title: 'My Title',
-                    data: test_data,
-                    mode: 'manual',         //manual mode to set custom limits
-                    limits: [0, 23, 30, ''], //insert empty string [''] as first or last entry for open lower or upper limit
-                    legend: {
-                        ignoredLayers: true,
-                        ignoredLayersText: 'Bremen',
-                    }
-                }
+                tiles: [{
+                    url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    layerControl: {
+                        name: 'Open Street Map'
+                    },
+                    attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+                }]
             }
         });
 

@@ -1,5 +1,6 @@
 .vscode/
 dev/bundle.js
+dev/NLGAMap.test.min.js
 dist/report.html
 manual/
 node_modules/

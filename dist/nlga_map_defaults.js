@@ -25,10 +25,7 @@ window.nlga_map_global_defaults = {
         }
     },
     baseLayer: {
-        ignoreLayerIds: ['04'],
-        styles: {
-            color: 'rgba(255, 255, 255, 1)'
-        }
+        ignoreLayerIds: ['04']
     },
     cityLayer: {
         order: 0,
@@ -37,6 +34,18 @@ window.nlga_map_global_defaults = {
         }
     },
     layers: {
+        tiles: [{
+            layerName: 'bkg',
+            url: 'https://sgx.geodatenzentrum.de/wmts_topplus_web_open/tile/1.0.0/{id}/{Style}/{TileMatrixSet}/{z}/{y}/{x}.png',
+            id: 'web_grau',
+            Style: 'default',
+            TileMatrixSet: 'WEBMERCATOR',
+            attribution: '<a href="http://sg.geodatenzentrum.de/web_public/Datenquellen_TopPlus_Open.pdf">Datenquellen</a>',
+            layerControl: {
+                activate: false,
+                name: 'Landkarte'
+            }
+        }],
         choropleth: {
             popup: {
                 textNotFound: 'keine Daten'
@@ -63,6 +72,13 @@ window.nlga_map_global_defaults = {
                     5: ["rgb(202,0,32)","rgb(244,165,130)","rgb(212,212,212)","rgb(146,197,222)","rgb(5,113,176)"],
                     6: ["rgb(178,24,43)","rgb(239,138,98)","rgb(253,219,199)","rgb(209,229,240)","rgb(103,169,207)","rgb(33,102,172)"],
                     7: ["rgb(178,24,43)","rgb(239,138,98)","rgb(253,219,199)","rgb(212,212,212)","rgb(209,229,240)","rgb(103,169,207)","rgb(33,102,172)"]
+                },
+                diverging_reverse: {
+                    3: ["rgb(146,197,222)","rgb(212,212,212)","rgb(244,165,130)"],
+                    4: ["rgb(5,113,176)","rgb(146,197,222)","rgb(244,165,130)","rgb(202,0,32)"],
+                    5: ["rgb(5,113,176)","rgb(146,197,222)","rgb(212,212,212)","rgb(244,165,130)","rgb(202,0,32)"],
+                    6: ["rgb(33,102,172)","rgb(103,169,207)","rgb(209,229,240)","rgb(253,219,199)","rgb(239,138,98)","rgb(178,24,43)"],
+                    7: ["rgb(33,102,172)","rgb(103,169,207)","rgb(209,229,240)","rgb(212,212,212)","rgb(253,219,199)","rgb(239,138,98)","rgb(178,24,43)"]
                 }
             }
         }
@@ -70,9 +86,12 @@ window.nlga_map_global_defaults = {
 };
 
 window.nlga_map_legend_defaults = {
-    ignoredLayers: 'Bremen/<br>Bremerhaven',
-    noData: 'keine Daten',
+    ignoredLayers: true,
+    ignoredLayersText: 'Bremen/<br>Bremerhaven',
+    noData: true,
+    noDataText: 'keine Daten',
     modeNameText: 'Klassifizierung',
+    separator: ' bis ',
     statistic_names: {
         min: 'Minimum',
         max: 'Maximum',

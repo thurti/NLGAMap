@@ -112,7 +112,8 @@ We use [SemVer](http://semver.org/) for versioning.
 This project is licensed under the BSD 3-Clause License - see the [LICENSE.md](LICENSE.md) file for details.
 
 ## Known Bugs & ToDos
-+ get Karma to work with webpack and add some tests
++ reduce filesize (drop IE11 support?, use native functions, ...)
++ add tests
 + fullscreen is not working when the map is loaded in an iframe
 + classes legend: marker is not working working for custom colors
 + patterns are not printed in chrome
@@ -120,12 +121,10 @@ This project is licensed under the BSD 3-Clause License - see the [LICENSE.md](L
 + **Refactor**
     - prefix timeline css with "nlga_map-..."
     - prefix symbols css with "nlga_map-..."
-    - replace Events class
-    - (store ListenerRefs in class Events) or replace Events class
-    - (rangechange removeListener) or replace Events class
+    - seperate packages as leafelt plugins (eg. Timeline, TimelineControl, ArrowMarker, BarsMarker, CircleMarker)
+    - export utils as seperate functions instead of static class methods
 
 + **Features**
     - SVG, PNG export
-    - WFM Layer integration
+    - WFS Layer integration
     - multiple choropleth layers
-    - replace "striped" option in Legend with more flexible {patterns: [{pattern: 'striped', color: '...', text: 'my category'}, {...}]}

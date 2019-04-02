@@ -2,6 +2,7 @@ import each from 'lodash/each';
 import {Controls} from './Controls';
 import {MarkerLayer} from './MarkerLayer';
 import {RegionLayer} from './RegionLayer';
+import {TileLayer} from './TileLayer';
 import {Timeline} from '../Timeline/Timeline';
 
 export class Layers {
@@ -42,6 +43,16 @@ export class Layers {
                                      .then(this._onLayerLoaded.bind(this));
 
         return promise;
+    }
+
+    addTileLayer(options) {
+        let tileLayer = new TileLayer(options),
+            layer     = tileLayer.create();
+
+        this._addAutoSetChoroplethOpacity(layer, options.autoSetChoroplethOpacity);
+        this._onLayerLoaded(layer);
+
+        return tileLayer;
     }
 
     addTimeline(options) {
@@ -107,5 +118,28 @@ export class Layers {
 
         this[options.layerName] = layer;
         return layer;
+    }
+
+    _addAutoSetChoroplethOpacity(layer, auto_opacity) {
+        if (auto_opacity === false) return;
+
+        const opacity       = this.baselayer.options.styles.fillOpacity,
+              hover_opacity = this.baselayer.options.styles.hover.fillOpacity;
+
+        layer.on('add', () => { 
+            this.baselayer.options.styles.fillOpacity       = auto_opacity;
+            this.baselayer.options.styles.hover.fillOpacity = auto_opacity;
+            
+            this.baselayer.setStyle({fillOpacity: auto_opacity});
+        });
+        
+        layer.on('remove', () => { 
+            if (this.baselayer) {
+                this.baselayer.options.styles.fillOpacity       = opacity;
+                this.baselayer.options.styles.hover.fillOpacity = hover_opacity;
+                
+                this.baselayer.setStyle({fillOpacity: opacity});
+            }
+        });
     }
 }

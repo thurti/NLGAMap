@@ -12,6 +12,31 @@ import './style.css';
 export class Legend {
     constructor(options) {
         this.options = defaultsDeep(options, window.nlga_map_legend_defaults, defaults);
+        
+        //@deprecated since 1.0.2
+        //@remove in 2.0.0
+        if (typeof this.options.striped === 'string') {
+            console.warn("Warning: Option 'legend.striped' is deprecated. Use legend.patterns instead. See https://www.apps.nlga.niedersachsen.de/tools/NLGAMap/manual/configuration.html#-code-legend--code- for details. ");
+            
+            this.options.patterns.push({id: 'striped', text: this.options.striped});
+        }        
+        //@deprecated since 1.1.0
+        //@remove in 2.0.0
+        if (typeof this.options.noData === 'string') {
+            console.warn(`Warning: Option 'legend.noData' has changed. Use {noData: true, noDataText = '${this.options.noData}'} to set displayed text instead. See https://www.apps.nlga.niedersachsen.de/tools/NLGAMap/manual/configuration.html#-code-legend--code- for details.`);
+
+            this.options.noDataText = this.options.noData;
+            this.options.noData = true;
+        } 
+        //@deprecated since 1.1.0
+        //@remove in 2.0.0
+        if (typeof this.options.ignoredLayers === 'string') {
+            console.warn(`Warning: Option 'legend.ignoredLayers' has changed. Use {ignoredLayers: true, ignoredLayersText = '${this.options.ignoredLayers}'} to set displayed text instead. See https://www.apps.nlga.niedersachsen.de/tools/NLGAMap/manual/configuration.html#-code-legend--code- for details.`);
+
+            this.options.ignoredLayersText = this.options.ignoredLayers;
+            this.options.ignoredLayers = true;
+        }
+
         this.init(this.options);
     }
 

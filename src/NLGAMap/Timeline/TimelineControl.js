@@ -1,14 +1,11 @@
-import {Events} from '../../Utils/Events';
-
 import {defaults} from  './defaults';
 import controlTemplate from './control.jst';
-import EventEmitter from 'wolfy87-eventemitter/EventEmitter';
 import './style.css';
 import './icons.css';
 
 L.Control.Timeline = L.Control.extend({
     
-    includes: EventEmitter.prototype,
+    includes: L.Evented.prototype,
 
     options: defaults.controls,
 
@@ -27,7 +24,9 @@ L.Control.Timeline = L.Control.extend({
         this._spanCurrentTime = container.querySelector('.currentTime .time');
 
         L.DomEvent.on(container, 'click', this._handleClick, this);
-        Events.onRangeChange(this._inputSeek, this._handleSeek.bind(this));
+        L.DomEvent.on(this._inputSeek, 'input', this._handleSeek, this);
+        L.DomEvent.on(this._inputSeek, 'change', this._handleSeek, this);
+        
         L.DomEvent.disableClickPropagation(container);
         L.DomEvent.disableClickPropagation(this._inputSeek);
 
@@ -43,6 +42,8 @@ L.Control.Timeline = L.Control.extend({
         if (!container) return;
 
         L.DomEvent.off(container, 'click', this._handleClick, this);
+        L.DomEvent.off(this._inputSeek, 'input', this._handleSeek, this);
+        L.DomEvent.off(this._inputSeek, 'change', this._handleSeek, this);
         container.parentNode.removeChild(container);
 
         this._inputSeek       = null;
@@ -55,7 +56,7 @@ L.Control.Timeline = L.Control.extend({
         let action = e.target.dataset.action;
 
         if (action !== 'seek')
-            this.trigger(action, [e.target]);
+            this.fire(action);
 
         switch (action) {
             case 'prev':
@@ -78,7 +79,7 @@ L.Control.Timeline = L.Control.extend({
 
     _handleSeek(e) {
         let newTime = this._seekToTime(this.options.times, e.target.value);
-        this.trigger('seek', [newTime]);
+        this.fire('seek', {time: newTime});
         this.setPlayButtonState('pause');
     },
 
@@ -94,10 +95,10 @@ L.Control.Timeline = L.Control.extend({
         let btn = this.getContainer().querySelector('[data-action="play"]');
 
         if (btn.classList.contains('nlga_map-timeline-icon-play')) {
-            this.trigger('start');
+            this.fire('start');
             this.setPlayButtonState('play', btn);
         } else {            
-            this.trigger('stop');
+            this.fire('stop');
             this.setPlayButtonState('pause', btn);
         }
     },

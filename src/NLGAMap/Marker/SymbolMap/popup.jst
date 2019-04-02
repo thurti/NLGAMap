@@ -4,7 +4,7 @@
     <% } %>
     <% var data = data || false; %>
     <% if (data) { %>
-        <%= data %>
+        <%= data.toLocaleString() %>
     <% } else { %>
         <%= markerNames[value] %>
     <% } %>

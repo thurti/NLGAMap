@@ -8,6 +8,7 @@ var map = new NLGAMap({
     baseLayer: {...},
     cityLayer: {...},
     layers: {
+        tiles: [{}, ...],
         choropleth: {},
         markers: [{}, ...],
         symbols: [{}, ...]
@@ -82,6 +83,7 @@ The `baseLayer` configuration object creates a basic shape map from a GeoJSOn/To
 | styles.hover.color | String | `'#ff7f00'` | Stroke color on hover. |
 | styles.hover.weight | Integer | `2` | Stroke width on hover. |
 | styles.hover.opacity | Float | `1` | Stroke opacity on hover. |
+| styles.hover.fillOpacity | Float | `1` | Fill opacity on hover. |
 
 
 
@@ -110,6 +112,7 @@ The `layers` configuration object contains the different layers added to the map
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
+| tiles | Array | | Array of tile layer objects. |
 | choropleth | Object | | Adds choropleth layer to map. Only one choropleth layer is supported by now. Multiple choropleth layer support may be added in the future. |
 | markers | Array | | Array of marker layer objects. |
 | symbols | Array | | Array of symbol layer objects. |
@@ -133,6 +136,13 @@ The basic options are all the same for `choropleth`, `marker` and `symbol` layer
 | layerControl | Object | | Layer control options. |
 
 
+### `tiles`
+Loads tile layers on the map from given options.  It is basicaly a wrapper for `L.tileLayer`. See https://leafletjs.com/reference-1.3.0.html#tilelayer for all options.
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| url | String | | URL to Web Map Tiles Service (WMTS; eg. Open Street Map). |
+| layerControl.name | String | `'map'` | |
 
 ### `choropleth`
 The choropleth layer colors a specific map region by finding a color for a given value.
@@ -142,7 +152,7 @@ The data must be provided as an Object with the layer region id as key and a num
 
 The choropleth data keys must match the ids from `baseLayer` GeoJSON.
 
-To make a region "striped", provide the value as object and set `pattern: 'striped'`. (example below)
+To make a region "striped", provide the value as object and set `pattern: 'striped'`. (example below) You can use any pattern which is defined in `defs.patterns`.
 
 If the data contains multiple objects, the data is assumed to be a timeline where the object key is used as time reference.
 
@@ -155,7 +165,7 @@ var choropleth_data = {
     },
     456: {  //make color striped
         value: 13,
-        striped: true
+        pattern: 'striped'
     }
     ...
 };
@@ -196,10 +206,12 @@ var choroleth_data_timeline = {
 | **colors[colorScheme]** | Object | | Each color scheme is defined as an object. |
 | colors[schemeName][step] | | | You can define different colors for specific combinations of colorScheme and number of steps. See examples... | 
 | **legend** | Object or Boolean | | Legend options or false for no legend. See Legend options for details. |
-| legend.ignoredLayers | String or Boolean | `false` | Ignored layers text in legend. Set to `false` to hide in legend. |
+| legend.ignoredLayers | Boolean | `false` | Show ignored layers text in legend. |
+| legend.ignoredLayersText | String | `''` | Text for ignored layers in legend. |
 | legend.modeName | Boolean | `true` | Display name of selected classification mode in legend. |
 | legend.modeNameText | String | `'Classification'` | Text to show before mode name. |
-legend.striped | Boolean or String | `false` | Show striped icon in legend with given text. |
+| legend.striped | Boolean or String | `false` | **deprecated (use legend.patterns)** Show striped icon in legend with given text. |
+| legend.patterns | Object[] | | Array of patterns to show in legend. eg. `[{id: 'striped', text: 'My striped categgory}, {id: 'striped_thin', text: 'my thin cat'}, ...]`|
 | **popup** | Object | | Popup options. For more options see http://leafletjs.com/reference-1.3.0.html#popup |
 | popup.closeButton | Boolean | `false` | |
 | popup.offset | L.point | `L.point(0, -5)` | |
@@ -207,10 +219,10 @@ legend.striped | Boolean or String | `false` | Show striped icon in legend with 
 
 
 ### `marker`
-The marker layer adds circle to a specific positions (lat/lon). You can customize the markers apperance through css. You can also provide a `customIcon()` callback function to .
+The marker layer adds a circle marker to a specific positions (lat/lon). You can customize the markers apperance through css. You can also provide a `customIcon()` callback function.
 
 #### Data format
-The data must be provided as **geojson** FeatureCollection. The value must be stored under `properties.value`. The name property name can be set through the marker layer options.
+The data must be provided as **geojson** FeatureCollection. The value must be stored under `properties.[valuePropPath]`. The "name" and "value" property name can be set through the marker layer options.
 
 The time data is stored inside the properties. The key of the time value  must match the `timeKey` property in the marker layer configuration object.
 
@@ -235,9 +247,50 @@ var marker_data = {
 };
 ```
 
+#### Pie Chart Data Format
+If a marker layer is added with `type: 'pie'`, the data must contain values for the pie slices and a total value. The size of the single pie chart slices is calculated from the single values. The total value is use for calculating the pie radius (like circle markers).
+
+| Property | Type | Description |
+|----------|------|-------------|
+| value.total | Number | Used to calculate the pie chart radius and will be displayed as "total" in popup. |
+| value.slices | Array | Array of slice objects. |
+| **slice** | Object | Represents a pie chart slice. |
+| slice.label | String | Name of the slice. |
+| slice.value | Number | Value (size) of the slice. |
+| slice.color | String | Color of the slize. Can be hex, rgb() or HTMl color. |
+| slice.style | String | Custom SVG-styles (like stroke-width, opacity, ...) for slice. |
+
+```
+var marker_data = {
+    type: "FeatureCollection",
+    features: [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [lng, lat]
+            },
+            "properties": {
+                "name": "MyName",
+                "value": {
+                    "total": 24,
+                    "slices": [
+                        {"label": "A", "value": 24.4, "color": "red"},
+                        ...
+                    ]
+                }
+            }
+        },
+        ...
+    ]
+};
+```
+
+
 #### Options
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
+| type | String | `'circle'` | Type of marker. `['circle', 'pie']` |
 | timeKey | String | `''` | Key that matches the time value key in the data object. |
 | maxRadius | Number | `20` | Maximum circle radius. |
 | scale | String | `'linear'` | Scaling type of the circle. Possible values `['log', 'linear']` |
@@ -245,10 +298,14 @@ var marker_data = {
 | power_function_exponent | Number | `0.58` | |
 | order | Number | `null` | Sets the order, if multiple marker layers are added. | 
 | style | String | `'fill: rgba(224, 0, 60, 0.8)'` | Set css styles for the circle marker. The apperance of the marker can also be changed through css.|
+| precision | Integer | | Number of decimals for calculated percent values. **(only used for `type: 'pie'`)** |
+| valuePropPath | String | `'value'` | A string or object path where to find the real "value" in the geojson properties. (eg. `value.data`) |
 | customIcon | function (value) | | Function that returns an leaflet Icon (eg. `L.icon()`) based on the given `value`. |
 | timeline | Object or Boolean | `false` | Timeline options or false if no time data. |
 | **legend** | Object or Boolean | | Legend options or false for no legend. |
-| legend.ignoredLayers | String or Boolean | `false` | Ignored layers text in legend. Set to `false` to hide in legend. |
+| legend.ignoredLayers | Boolean | `false` | Show ignored layers text in legend. |
+| legend.ignoredLayersText | String | `''` | Text for ignored layers in legend. |
+| popup.total| String | `'Total: '` | Label for total value in popup.  **(only used for `type: 'pie'`)** | 
 
 
 
@@ -294,7 +351,7 @@ var symbols_data_time = {
 | timeKey | String | `''` | Key that matches the time value key in the data object. |
 | type | String | `'arrows'` | Symbol type. Possible values `['arrows', 'bars']` |
 | **legend** | Object or Boolean | | Legend options or false for no legend. |
-| legend.markerNames | Array | | | Marker names to show in the legend. |
+| legend.markerNames | Array | | Marker names to show in the legend. |
 
 
 
@@ -324,17 +381,21 @@ Set to `false` to disable popup for specific layer.
 ### `legend`
 For all options see http://leafletjs.com/reference-1.3.0.html#control .
 
-Set to `false` to disable popup for specific layer.
+Set to `false` to disable legend for specific layer.
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | position | String | 'bottomright' | Legend position. Possible values `['topleft', 'topright', 'bottomleft', 'bottomright']` |
-| striped | String, Boolean | `false` | Add stripe pattern legend entry. |
+| striped | String, Boolean | `false` | **deprecated (use legend.patterns**) Add stripe pattern legend entry. |
+| patterns | Object[] | | Array of patterns to show in legend. eg. `[{id: 'striped', text: 'My striped categgory}, {id: 'striped_thin', text: 'my thin cat'}, ...]`|
 | additional | String | `''` | Html to be added after last legend entry. |
 | infoText | String | `''` | Information popup text after legend title. |
 | template | String | | Custom popup html template. Variables can be use in form of `${name}`. See examples for details. |
-| ignoredLayers | String or Boolean | `false` | Ignored layers text in legend. Set to `false` to hide in legend. |
-| noData | Boolean | `true` | Show "Keine Daten" in legend.
+| ignoredLayers | Boolean | `false` | Ignored layers text in legend. Set to `false` to hide in legend. |
+| ignoredLayersText | String | `''`| Text to show for ignored layers. |
+| noData | Boolean | `true` | Show "No Data" in legend. |
+| noDataText | String | `'no data'` | Text to show for no data. |
+| separator | String | ` &ndash; ` | Separator string between classes in legend. |
 | modeName | Boolean | `true` | Show classification mode name in legend. **Only for choropleth layer.**|
 | **mode_names** | Object | | Display name for specific mode. |
 | mode_names.equal | String | `'Equal'` | Display name for mode equal. |

@@ -58,8 +58,12 @@
                     layerName: 'myTest',
                     data: test_data,
                     legend: {
-                        ignoredLayers: 'Bremen',
-                        striped: 'eigene Kategorie'
+                        ignoredLayers: true,
+                        ignoredLayersText: 'Bremen',
+                        patterns: [{
+                            id: 'striped',
+                            text: 'Test 1'
+                        }]
                     }
                 }
             }

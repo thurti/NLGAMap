@@ -1,10 +1,7 @@
 import defaultsDeep from 'lodash/defaultsDeep'; 
-import omit from 'lodash/omit';
 
 import {Color} from '../../Utils/Color';
-
 import {MarkerLegend} from '../Legend/Marker/MarkerLegend';
-import {TimelineParser} from '../Timeline/TimelineParser';
 
 export class MarkerBase {
 
