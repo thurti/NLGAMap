@@ -223,7 +223,7 @@ export class Choropleth {
 
         if (this.layers.baselayer.options.ignoreLayerIds.indexOf(id) > -1) {
             this.setLayerColor(layer, this.colors.ignore);
-        } else if (this.data[id]) {
+        } else if (id in this.data) {
             let valueData = this._getLayerValue(id, 'data');
                 value     = this._getLayerValue(id);
 

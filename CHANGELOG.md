@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.1 (2019-05-13)
+- Fix: Choropleth wrong color if value is '0'
+
 ## 1.1.0 (2019-03-27)
 - Remove: wolfy87-eventemitter dependency - replace by L.Evented
 - Remove: Events class dependency replaced by L.DomEvent
