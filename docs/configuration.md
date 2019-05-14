@@ -130,7 +130,7 @@ The basic options are all the same for `choropleth`, `marker` and `symbol` layer
 | title | String | `''` | Title for the data. Is used in legend. |
 | unit | String | `''` | String added after values. |
 | data | Object | | Data object. See examples for data structure. |
-| timline | Object or false | | Timeline options or false if no time data. |
+| timeline | Object or false | | Timeline options or false if no time data. |
 | popup | Object or false | | Popup options or false to hide popup. |
 | legend | Object or false | | Legend options or false to hide legend. |
 | layerControl | Object | | Layer control options. |
