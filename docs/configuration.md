@@ -98,7 +98,7 @@ The `cityLayer`configuration object creates the cities layer from  geojson/topoj
 | addNameSpan | Boolean | `true` | Show Name above marker in map. | 
 | **layerControl** | Boolen or Object |  | If false, don't show layer controls. |
 | layerControl.name | String | `'Städte'` | Display name in layer control panel. |
-| layerControl.active | Boolean | `true` | Initialy activate layer. |
+| layerControl.activate | Boolean | `true` | Initialy activate layer. |
 | **popup** | Boolean or Object | `false` | Popup configuration object. Set to `false` to hide popup. See also http://leafletjs.com/reference-1.3.0.html#popup |
 | **styles** | Object | | Basic inline css styling for shapes. | 
 | styles.className | String | `nlga_map-citiy-icon` | Marker CSS class name. |
