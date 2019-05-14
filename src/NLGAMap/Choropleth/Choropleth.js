@@ -248,12 +248,14 @@ export class Choropleth {
     }
 
     _getLayerValue(id, propName = 'value') {
-        let layerData = this.data[id];
+        const layerData = this.data[id];
 
-        if (typeof layerData === 'object') {
-            return layerData[propName] || '';
+        if (typeof layerData === 'object' && propName in layerData) {
+            return layerData[propName];
         } else if (propName === 'value') {
             return layerData;
+        } else {
+            return undefined;
         }
     }
     
