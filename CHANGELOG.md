@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.2 (2019-05-14)
+- Fix: Choropleth wrong color if value is '0' and set through object {value:0}
+
 ## 1.1.1 (2019-05-13)
 - Fix: Choropleth wrong color if value is '0'
 
