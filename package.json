@@ -1,7 +1,7 @@
 {
   "name": "nlgamap",
   "description": "JavaScript library for creating interactive thematic maps based on Leaflet.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "Thomas Hurtig",
   "license": "BSD-3-Clause",
   "private": true,

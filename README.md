@@ -92,7 +92,6 @@ npm start
 - [TopoJSON Client](https://github.com/topojson/topojson-client)
 - [colorbrewer](https://github.com/saikocat/colorbrewer)
 - [RainbowVis-JS](https://github.com/anomal/RainbowVis-JS)
-- [EventEmitter](https://github.com/Olical/EventEmitter)
 - [Leaflet.fullscreen](https://github.com/Leaflet/Leaflet.fullscreen)
 - [Font Awesome by Dave Gandy](http://fontawesome.io)
 - [innersvg-polyfill](https://github.com/dnozay/innersvg-polyfill)
