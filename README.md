@@ -127,3 +127,5 @@ This project is licensed under the BSD 3-Clause License - see the [LICENSE.md](L
     - SVG, PNG export
     - WFS Layer integration
     - multiple choropleth layers
+    - choropleth: add props from data object to popup template
+    - add histogram to legend
