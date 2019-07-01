@@ -39,17 +39,18 @@ L.Control.Timeline = L.Control.extend({
 
     remove() {
         let container = this.getContainer();
-        if (!container) return;
+        
+        if (container) {
+            L.DomEvent.off(container, 'click', this._handleClick, this);
+            L.DomEvent.off(this._inputSeek, 'input', this._handleSeek, this);
+            L.DomEvent.off(this._inputSeek, 'change', this._handleSeek, this);
+            container.parentNode.removeChild(container);
 
-        L.DomEvent.off(container, 'click', this._handleClick, this);
-        L.DomEvent.off(this._inputSeek, 'input', this._handleSeek, this);
-        L.DomEvent.off(this._inputSeek, 'change', this._handleSeek, this);
-        container.parentNode.removeChild(container);
-
-        this._inputSeek       = null;
-        this._spanCurrentTime = null;
-        container             = null;
-        this.options          = null;
+            this._inputSeek       = null;
+            this._spanCurrentTime = null;
+            container             = null;
+            this.options          = null;
+        }
     },
 
     _handleClick(e) {

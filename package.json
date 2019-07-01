@@ -22,7 +22,7 @@
     "colorbrewer": "^1.3.0",
     "geostats": "^1.7.0",
     "innersvg-polyfill": "0.0.2",
-    "leaflet": "^1.4.0",
+    "leaflet": "^1.5.1",
     "leaflet-fullscreen": "^1.0.2",
     "leaflet-piemarker": "github:nlga/leaflet-piemarker",
     "lodash": "^4.17.11",
