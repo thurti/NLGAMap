@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.3 (2019-07-02)
+- Updated dependencies
+- Fix: Leaflet error (since v1.5) when calling NLGAMap.remove()
+- Updated leaflet to v1.5
+
 ## 1.1.2 (2019-05-14)
 - Fix: Choropleth wrong color if value is '0' and set through object {value:0}
 
