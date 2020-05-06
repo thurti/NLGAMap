@@ -251,7 +251,7 @@ popup: {
 ...
 ```
 
-In **marker and symbol layers**, you can also add custom variables through the `data` object and through the `popup` configuration object.
+You can also add custom variables through the `data` object and through the `popup` configuration object.
 ```
 var data = {
     "241": {

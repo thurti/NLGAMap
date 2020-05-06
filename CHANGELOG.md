@@ -1,5 +1,8 @@
 # Changelog
 
+- Add: Choropleth option `propertyValue` to set the property which is used as map data
+- Add: Choropleth use additional data in popup template
+
 ## 1.1.3 (2019-07-02)
 - Updated dependencies
 - Fix: Leaflet error (since v1.5) when calling NLGAMap.remove()
