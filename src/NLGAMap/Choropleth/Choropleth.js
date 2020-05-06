@@ -186,13 +186,15 @@ export class Choropleth {
     setLayerPopup(layer, value, data, unit = this.unit) {
         if (this.options.popup !== false) {
 
-            layer.popupContent = this._popupTemplate({
+            let more_data = (typeof this.data[layer.feature.properties.id] === 'object') ? this.data[layer.feature.properties.id] : {};
+
+            layer.popupContent = this._popupTemplate(merge(more_data, {
                     name: layer.feature.properties[this.options.propertyName],
                     value: value,
                     unit: (value !== this.options.popup.textNotFound && this.options.mode !== 'text') ? unit : '',
                     data: data,
                     unitData: (data) ? unit : ''
-                });
+                }));
         }
     }
 
