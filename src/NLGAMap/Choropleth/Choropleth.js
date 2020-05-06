@@ -225,7 +225,7 @@ export class Choropleth {
             this.setLayerColor(layer, this.colors.ignore);
         } else if (id in this.data) {
             let valueData = this._getLayerValue(id, 'data');
-                value     = this._getLayerValue(id);
+                value     = this._getLayerValue(id, this.options.propertyValue);
 
             this.setLayerColorFromValue(layer, value, this.data[id].pattern);
             this.setLayerPopup(layer, value, valueData);
@@ -291,14 +291,14 @@ export class Choropleth {
         if (this._timeline) {
             data = map(parsedData, (o) => {
                 return map(o, (d) => {
-                    return (typeof d === 'object') ? d.value : d;
+                    return (typeof d === 'object') ? d[this.options.propertyValue] : d;
                 });
             });
             
             data = flatten(data);
         } else {
             data = map(parsedData, (d) => {
-                        return (typeof d === 'object') ? d.value : d;
+                        return (typeof d === 'object') ? d[this.options.propertyValue] : d;
                     });
         }
 
