@@ -1,6 +1,6 @@
 import defaultsDeep from 'lodash/defaultsDeep'; 
 import has from 'lodash/has'; 
-import isEmpty from 'lodash/isEmpty'; 
+import each from 'lodash/each'; 
 import pick from 'lodash/pick'; 
 import map from 'lodash/map'; 
 import merge from 'lodash/merge'; 
@@ -51,6 +51,8 @@ export class Choropleth {
 
     set data(parsedData) {
         if (typeof parsedData !== 'object') throw('data must be an object');
+
+        this.layers.baselayer.eachLayer((layer) => this._addValueForNoData(layer.feature.properties.id, parsedData));
 
         this._parsedData     = parsedData;
         this._times          = (this._timeline) ? Object.keys(parsedData) : null;
@@ -284,6 +286,22 @@ export class Choropleth {
         if (this.legend) {
             layer.on('mouseover', this.legend.setMarkerPosition.bind(this.legend, {value: value, idx: idx}));
             layer.on('mouseout', this.legend.hideMarker.bind(this.legend));
+        }
+    }
+
+    _addValueForNoData(id, parsedData) {
+        if (this.options.valueIfNoData === false) return;
+
+        if (this._timeline) {
+            each(parsedData, (data, key) => {
+                if (!Object.keys(data).includes(id)) {
+                    parsedData[key][id] = this.options.valueIfNoData;
+                }
+            });
+        } else {
+            if (!Object.keys(parsedData).includes(id)) {
+                parsedData[id] = this.options.valueIfNoData;
+            }
         }
     }
 

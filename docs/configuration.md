@@ -199,6 +199,7 @@ var choroleth_data_timeline = {
 | limitColors | Array | | Only in mode `text`. Set colors for limits. |
 | steps | Integer | `5` | Number of classification steps. |
 | mode | String | `'jenks'` | Classification mode. Possible values `['equal',  'quantile', 'jenks', 'continuous', 'manual', 'text']`. In modes `text` and `manual` the limits must be set manualy. |
+| valueIfNoData | Number or Boolean | `false` | Add this value if there is no data present for an area. |
 | limits | Array | | Class limits. Can only be set in modes `text` and `manual`. |
 | timeline | Object or Boolean | `false` | Timeline options or false if no time data. |
 | layerCallback | function (layer, value) | null | Callback on every layer. Useful for setting custom colors, popup ect. for specific values. |

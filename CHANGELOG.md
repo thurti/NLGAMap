@@ -1,5 +1,6 @@
 # Changelog
 
+- Add: Choropleth option `valueIfNoData` to add a value if no data is provided for baselayer area
 - Add: Choropleth option `propertyValue` to set the property which is used as map data
 - Add: Choropleth use additional data in popup template
 

@@ -9,6 +9,7 @@ export const defaults = {
     data: [],
     steps: 5,
     mode: 'jenks',
+    valueIfNoData: false,
     title: '',
     layerName: 'choropleth',
     unit: '',
