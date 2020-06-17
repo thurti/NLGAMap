@@ -20,7 +20,8 @@ export const defaults = {
         autoPan: false,
         textNotFound: 'no data'
     },
-    timeline: false
+    timeline: false,
+    propertyTimeKey: null
 };
 
 export const modes = {

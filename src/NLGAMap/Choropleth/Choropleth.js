@@ -12,6 +12,7 @@ import Rainbow from 'rainbowvis.js';
 import {Parse} from '../../Utils/Parse';
 import {Color} from '../../Utils/Color';
 import {Classification} from '../../Statistics/Classification';
+import {TimelineParser} from '../Timeline/TimelineParser';
 
 import {defaults, modes} from './defaults';
 import popupTemplate from './popup.jst';
@@ -294,6 +295,12 @@ export class Choropleth {
         let parsedData_obj = {};
 
         if (this._timeline) {
+
+            if (Array.isArray(parsedData) && typeof this.options.propertyTimeKey === 'string') {
+                const times = TimelineParser.getTimesFromJSON(parsedData, this.options.propertyTimeKey);
+                parsedData = TimelineParser.parseJSON(parsedData, times, this.options.propertyTimeKey);
+            }
+
             each(parsedData, (data, key) => {
                 let data_obj = {};
                 if (Array.isArray(data)) {

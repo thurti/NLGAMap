@@ -24,4 +24,21 @@ export class TimelineParser {
 
         return data;
     }
+
+    static getTimesFromJSON(json, timeKey) {
+        let times = Array.from(json)
+                         .map(data => data[timeKey]);
+                         
+        return uniq(times);
+    }
+
+    static parseJSON(json, times, timeKey) {
+        let data = {};
+
+        times.forEach((time) => {
+            data[time] = filter(json, data => data[timeKey] === time);
+        });
+
+        return data;
+    }
 }
