@@ -329,14 +329,24 @@ export class Choropleth {
         if (this._timeline) {
             each(parsedData, (data, key) => {
                 if (!Object.keys(data).includes(id)) {
-                    parsedData[key][id] = this.options.valueIfNoData;
+                    if (this.options.propertyValue) {
+                        parsedData[key][id] = {};
+                        parsedData[key][id][this.options.propertyValue] = this.options.valueIfNoData;
+                    } else {
+                        parsedData[key][id] = this.options.valueIfNoData;
+                    }
                 }
             });
         } else {
             if (!Object.keys(parsedData).includes(id)) {
-                parsedData[id] = this.options.valueIfNoData;
+                if (this.options.propertyValue) {
+                    parsedData[id] = {};
+                    parsedData[id][this.options.propertyValue] = this.options.valueIfNoData;
+                } else {
+                    parsedData[id] = this.options.valueIfNoData;
+                }
             }
-        }
+        } console.log(parsedData);
     }
 
     _getValues(parsedData) {
