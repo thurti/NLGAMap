@@ -346,7 +346,7 @@ export class Choropleth {
                     parsedData[id] = this.options.valueIfNoData;
                 }
             }
-        } console.log(parsedData);
+        }
     }
 
     _getValues(parsedData) {
