@@ -3,6 +3,7 @@ import colors from 'colorbrewer';
 colors.notFound = {color: 'rgb(100,100,100)', pattern: ''};
 
 export const defaults = {
+    propertyId: 'id',
     propertyValue: 'value',
     colors: colors,
     colorScheme: 'PuBu',

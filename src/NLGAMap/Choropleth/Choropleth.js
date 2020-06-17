@@ -52,6 +52,7 @@ export class Choropleth {
     set data(parsedData) {
         if (typeof parsedData !== 'object') throw('data must be an object');
 
+        parsedData = this._parseDataToObject(parsedData);
         this.layers.baselayer.eachLayer((layer) => this._addValueForNoData(layer.feature.properties.id, parsedData));
 
         this._parsedData     = parsedData;
@@ -287,6 +288,32 @@ export class Choropleth {
             layer.on('mouseover', this.legend.setMarkerPosition.bind(this.legend, {value: value, idx: idx}));
             layer.on('mouseout', this.legend.hideMarker.bind(this.legend));
         }
+    }
+
+    _parseDataToObject(parsedData) {
+        let parsedData_obj = {};
+
+        if (this._timeline) {
+            each(parsedData, (data, key) => {
+                let data_obj = {};
+                if (Array.isArray(data)) {
+                    data.forEach((d) => {
+                        data_obj[d[this.options.propertyId]] = d;
+                    });
+                } else {
+                    data_obj = data;
+                }
+                parsedData_obj[key] = data_obj;
+            });
+        } else {
+            if (!Array.isArray(parsedData)) return parsedData;
+            1
+            parsedData.forEach((data) => {
+                parsedData_obj[data[this.options.propertyId]] = data;
+            });   
+        }
+
+        return parsedData_obj;
     }
 
     _addValueForNoData(id, parsedData) {

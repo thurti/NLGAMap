@@ -1,5 +1,7 @@
 # Changelog
 
+- Add: Choropleth option `propertyId` to set the property which is used to map the data to the baselayer ids. 
+  - Example: `data = [{id: 123, value: 100}, {id: 101, value: 1023}]` with `propertyId: 'id'` and `propertyValue: 'value'`
 - Add: Choropleth option `valueIfNoData` to add a value if no data is provided for baselayer area
 - Add: Choropleth option `propertyValue` to set the property which is used as map data
 - Add: Choropleth use additional data in popup template
