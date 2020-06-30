@@ -1,5 +1,6 @@
 import uniq from 'lodash/uniq';
 import filter from 'lodash/filter';
+import map from 'lodash/map';
 
 export class TimelineParser {
 
@@ -26,8 +27,7 @@ export class TimelineParser {
     }
 
     static getTimesFromJSON(json, timeKey) {
-        let times = Array.from(json)
-                         .map(data => data[timeKey]);
+        let times = map(json, data => data[timeKey]);
                          
         return uniq(times);
     }

@@ -328,7 +328,7 @@ export class Choropleth {
 
         if (this._timeline) {
             each(parsedData, (data, key) => {
-                if (!Object.keys(data).includes(id)) {
+                if (Object.keys(data).indexOf(id) === -1) {
                     if (this.options.propertyValue) {
                         parsedData[key][id] = {};
                         parsedData[key][id][this.options.propertyValue] = this.options.valueIfNoData;
@@ -338,7 +338,7 @@ export class Choropleth {
                 }
             });
         } else {
-            if (!Object.keys(parsedData).includes(id)) {
+            if (Object.keys(parsedData).indexOf(id) === -1) {
                 if (this.options.propertyValue) {
                     parsedData[id] = {};
                     parsedData[id][this.options.propertyValue] = this.options.valueIfNoData;
