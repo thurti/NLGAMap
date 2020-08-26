@@ -3,11 +3,14 @@ import colors from 'colorbrewer';
 colors.notFound = {color: 'rgb(100,100,100)', pattern: ''};
 
 export const defaults = {
+    propertyId: 'id',
+    propertyValue: 'value',
     colors: colors,
     colorScheme: 'PuBu',
     data: [],
     steps: 5,
     mode: 'jenks',
+    valueIfNoData: false,
     title: '',
     layerName: 'choropleth',
     unit: '',
@@ -17,7 +20,8 @@ export const defaults = {
         autoPan: false,
         textNotFound: 'no data'
     },
-    timeline: false
+    timeline: false,
+    propertyTimeKey: null
 };
 
 export const modes = {

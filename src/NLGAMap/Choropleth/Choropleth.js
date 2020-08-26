@@ -1,6 +1,6 @@
 import defaultsDeep from 'lodash/defaultsDeep'; 
 import has from 'lodash/has'; 
-import isEmpty from 'lodash/isEmpty'; 
+import each from 'lodash/each'; 
 import pick from 'lodash/pick'; 
 import map from 'lodash/map'; 
 import merge from 'lodash/merge'; 
@@ -12,6 +12,7 @@ import Rainbow from 'rainbowvis.js';
 import {Parse} from '../../Utils/Parse';
 import {Color} from '../../Utils/Color';
 import {Classification} from '../../Statistics/Classification';
+import {TimelineParser} from '../Timeline/TimelineParser';
 
 import {defaults, modes} from './defaults';
 import popupTemplate from './popup.jst';
@@ -51,6 +52,9 @@ export class Choropleth {
 
     set data(parsedData) {
         if (typeof parsedData !== 'object') throw('data must be an object');
+
+        parsedData = this._parseDataToObject(parsedData);
+        this.layers.baselayer.eachLayer((layer) => this._addValueForNoData(layer.feature.properties.id, parsedData));
 
         this._parsedData     = parsedData;
         this._times          = (this._timeline) ? Object.keys(parsedData) : null;
@@ -186,13 +190,15 @@ export class Choropleth {
     setLayerPopup(layer, value, data, unit = this.unit) {
         if (this.options.popup !== false) {
 
-            layer.popupContent = this._popupTemplate({
+            let more_data = (typeof this.data[layer.feature.properties.id] === 'object') ? this.data[layer.feature.properties.id] : {};
+
+            layer.popupContent = this._popupTemplate(merge(more_data, {
                     name: layer.feature.properties[this.options.propertyName],
                     value: value,
                     unit: (value !== this.options.popup.textNotFound && this.options.mode !== 'text') ? unit : '',
                     data: data,
                     unitData: (data) ? unit : ''
-                });
+                }));
         }
     }
 
@@ -225,7 +231,7 @@ export class Choropleth {
             this.setLayerColor(layer, this.colors.ignore);
         } else if (id in this.data) {
             let valueData = this._getLayerValue(id, 'data');
-                value     = this._getLayerValue(id);
+                value     = this._getLayerValue(id, this.options.propertyValue);
 
             this.setLayerColorFromValue(layer, value, this.data[id].pattern);
             this.setLayerPopup(layer, value, valueData);
@@ -285,20 +291,78 @@ export class Choropleth {
         }
     }
 
+    _parseDataToObject(parsedData) {
+        let parsedData_obj = {};
+
+        if (this._timeline) {
+
+            if (Array.isArray(parsedData) && typeof this.options.propertyTimeKey === 'string') {
+                const times = TimelineParser.getTimesFromJSON(parsedData, this.options.propertyTimeKey);
+                parsedData = TimelineParser.parseJSON(parsedData, times, this.options.propertyTimeKey);
+            }
+
+            each(parsedData, (data, key) => {
+                let data_obj = {};
+                if (Array.isArray(data)) {
+                    data.forEach((d) => {
+                        data_obj[d[this.options.propertyId]] = d;
+                    });
+                } else {
+                    data_obj = data;
+                }
+                parsedData_obj[key] = data_obj;
+            });
+        } else {
+            if (!Array.isArray(parsedData)) return parsedData;
+            1
+            parsedData.forEach((data) => {
+                parsedData_obj[data[this.options.propertyId]] = data;
+            });   
+        }
+
+        return parsedData_obj;
+    }
+
+    _addValueForNoData(id, parsedData) {
+        if (this.options.valueIfNoData === false) return;
+
+        if (this._timeline) {
+            each(parsedData, (data, key) => {
+                if (Object.keys(data).indexOf(id) === -1) {
+                    if (this.options.propertyValue) {
+                        parsedData[key][id] = {};
+                        parsedData[key][id][this.options.propertyValue] = this.options.valueIfNoData;
+                    } else {
+                        parsedData[key][id] = this.options.valueIfNoData;
+                    }
+                }
+            });
+        } else {
+            if (Object.keys(parsedData).indexOf(id) === -1) {
+                if (this.options.propertyValue) {
+                    parsedData[id] = {};
+                    parsedData[id][this.options.propertyValue] = this.options.valueIfNoData;
+                } else {
+                    parsedData[id] = this.options.valueIfNoData;
+                }
+            }
+        }
+    }
+
     _getValues(parsedData) {
         let data;
 
         if (this._timeline) {
             data = map(parsedData, (o) => {
                 return map(o, (d) => {
-                    return (typeof d === 'object') ? d.value : d;
+                    return (typeof d === 'object') ? d[this.options.propertyValue] : d;
                 });
             });
             
             data = flatten(data);
         } else {
             data = map(parsedData, (d) => {
-                        return (typeof d === 'object') ? d.value : d;
+                        return (typeof d === 'object') ? d[this.options.propertyValue] : d;
                     });
         }
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.4 (2020-08-26)
+- Add: Choropleth option `propertyTimeKey` to set the property which is used to map the data to a time. Data must be already ordered!
+  - Example: `data = [{id: 123, value: 100, year:'2020'}, {id: 101, value: 1023, year:'2021'}]` with `propertyTimeKey: 'year'`, `propertyId: 'id'` and `propertyValue: 'value'`
+- Add: Choropleth option `propertyId` to set the property which is used to map the data to the baselayer ids. 
+  - Example: `data = [{id: 123, value: 100}, {id: 101, value: 1023}]` with `propertyId: 'id'` and `propertyValue: 'value'`
+- Add: Choropleth option `valueIfNoData` to add a value if no data is provided for baselayer area
+- Add: Choropleth option `propertyValue` to set the property which is used as map data
+- Add: Choropleth use additional data in popup template
+
 ## 1.1.3 (2019-07-02)
 - Updated dependencies
 - Fix: Leaflet error (since v1.5) when calling NLGAMap.remove()
