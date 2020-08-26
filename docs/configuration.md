@@ -194,7 +194,9 @@ var choroleth_data_timeline = {
 #### Options
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
+| propertyId | String | `'id'` | Set the property which is used to map the data to the baselayer ids. |
 | propertyValue | String | `'value'` | Set property from where to take the value if the data value is formatted as object. |
+| propertyTimeKey | String | `null` | Set the property which is used to map the data to a time. Data must be already ordered! |
 | colorScheme | String | `'PuBu'` | Color scheme name. See [Colorbrewer](http://colorbrewer2.org) for possible color scheme names. |
 | limitColors | Array | | Only in mode `text`. Set colors for limits. |
 | steps | Integer | `5` | Number of classification steps. |

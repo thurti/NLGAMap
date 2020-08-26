@@ -1,5 +1,6 @@
 # Changelog
 
+## 1.1.4 (2020-08-26)
 - Add: Choropleth option `propertyTimeKey` to set the property which is used to map the data to a time. Data must be already ordered!
   - Example: `data = [{id: 123, value: 100, year:'2020'}, {id: 101, value: 1023, year:'2021'}]` with `propertyTimeKey: 'year'`, `propertyId: 'id'` and `propertyValue: 'value'`
 - Add: Choropleth option `propertyId` to set the property which is used to map the data to the baselayer ids. 
